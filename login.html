@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Sign In — Local for Vocal</title>
+  <link rel="stylesheet" href="css/style.css"/>
+  <link rel="stylesheet" href="css/auth.css"/>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+</head>
+<body class="auth-body">
+
+  <div class="auth-wrapper">
+
+    <!-- LEFT PANEL -->
+    <div class="auth-left">
+      <a href="index.html" class="auth-brand">
+        <span>🌿</span>
+        <span class="brand-name">Local<span class="accent">4</span>Vocal</span>
+      </a>
+      <div class="auth-left-content">
+        <h2>Discover your neighbourhood like never before.</h2>
+        <p>Connect with local shops, artisans, and businesses near you — all in one place.</p>
+        <div class="auth-features">
+          <div class="auth-feature"><span>📍</span> Find shops within your radius</div>
+          <div class="auth-feature"><span>💬</span> Chat directly with shop owners</div>
+          <div class="auth-feature"><span>📋</span> Post requirements, get quotes</div>
+          <div class="auth-feature"><span>⭐</span> Review and rate local businesses</div>
+        </div>
+      </div>
+      <div class="auth-left-circles">
+        <div class="lc lc1"></div>
+        <div class="lc lc2"></div>
+        <div class="lc lc3"></div>
+      </div>
+    </div>
+
+    <!-- RIGHT PANEL -->
+    <div class="auth-right">
+      <div class="auth-card">
+
+        <!-- TABS: USER / SHOP OWNER -->
+        <div class="auth-type-tabs">
+          <button class="auth-type-btn active" onclick="switchAuthType('user', this)">
+            <i class="fas fa-user"></i> I'm a Customer
+          </button>
+          <button class="auth-type-btn" onclick="switchAuthType('shop', this)">
+            <i class="fas fa-store"></i> I'm a Shop Owner
+          </button>
+        </div>
+
+        <!-- SIGN IN / SIGN UP TOGGLE -->
+        <div class="auth-mode-toggle">
+          <button class="mode-btn active" id="signinBtn" onclick="switchMode('signin')">Sign In</button>
+          <button class="mode-btn" id="signupBtn" onclick="switchMode('signup')">Create Account</button>
+        </div>
+
+        <!-- ===== SIGN IN FORM ===== -->
+        <div id="signinForm">
+          <h2 class="auth-title">Welcome Back 👋</h2>
+          <p class="auth-subtitle">Sign in to explore local shops near you</p>
+
+          <!-- PHONE LOGIN -->
+          <div class="form-group" id="phoneSection">
+            <label class="form-label">Phone Number</label>
+            <div class="phone-input-wrap">
+              <span class="country-code">🇮🇳 +91</span>
+              <input type="tel" id="signinPhone" placeholder="Enter your phone number" maxlength="10" class="form-input phone-input" oninput="this.value=this.value.replace(/\D/g,'')"/>
+            </div>
+          </div>
+
+          <!-- OTP SECTION (hidden initially) -->
+          <div class="form-group" id="otpSection" style="display:none">
+            <label class="form-label">Enter OTP</label>
+            <p class="otp-hint">OTP sent to +91 <span id="otpPhone"></span> <button class="change-phone" onclick="changePhone()">Change</button></p>
+            <div class="otp-inputs">
+              <input type="text" class="otp-box" maxlength="1" oninput="otpMove(this, 1)"/>
+              <input type="text" class="otp-box" maxlength="1" oninput="otpMove(this, 2)"/>
+              <input type="text" class="otp-box" maxlength="1" oninput="otpMove(this, 3)"/>
+              <input type="text" class="otp-box" maxlength="1" oninput="otpMove(this, 4)"/>
+              <input type="text" class="otp-box" maxlength="1" oninput="otpMove(this, 5)"/>
+              <input type="text" class="otp-box" maxlength="1" oninput="otpMove(this, 6)"/>
+            </div>
+            <div class="otp-resend">
+              Didn't receive? <button class="resend-btn" id="resendBtn" onclick="resendOTP()" disabled>Resend in <span id="timer">30</span>s</button>
+            </div>
+          </div>
+
+          <button class="auth-submit-btn" id="signinSubmitBtn" onclick="handleSignin()">
+            <span id="signinBtnText">Send OTP</span>
+            <i class="fas fa-arrow-right"></i>
+          </button>
+
+          <div class="auth-divider"><span>or continue with</span></div>
+
+          <button class="google-btn" onclick="googleSignin()">
+            <img src="https://www.google.com/favicon.ico" width="18" height="18" alt="Google"/>
+            Continue with Google
+          </button>
+
+        </div>
+
+        <!-- ===== SIGN UP FORM ===== -->
+        <div id="signupForm" style="display:none">
+          <h2 class="auth-title">Create Account 🚀</h2>
+          <p class="auth-subtitle">Join thousands discovering local shops</p>
+
+          <div class="form-group">
+            <label class="form-label">Full Name</label>
+            <div class="input-icon-wrap">
+              <i class="fas fa-user"></i>
+              <input type="text" id="signupName" placeholder="Your full name" class="form-input icon-input"/>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Phone Number</label>
+            <div class="phone-input-wrap">
+              <span class="country-code">🇮🇳 +91</span>
+              <input type="tel" id="signupPhone" placeholder="10 digit phone number" maxlength="10" class="form-input phone-input" oninput="this.value=this.value.replace(/\D/g,'')"/>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Email (Optional)</label>
+            <div class="input-icon-wrap">
+              <i class="fas fa-envelope"></i>
+              <input type="email" id="signupEmail" placeholder="your@email.com" class="form-input icon-input"/>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Your Area / City</label>
+            <div class="input-icon-wrap">
+              <i class="fas fa-location-dot"></i>
+              <input type="text" id="signupArea" placeholder="e.g. Koramangala, Bangalore" class="form-input icon-input"/>
+            </div>
+          </div>
+
+          <div class="form-check">
+            <input type="checkbox" id="termsCheck"/>
+            <label for="termsCheck">I agree to the <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a></label>
+          </div>
+
+          <button class="auth-submit-btn" onclick="handleSignup()">
+            Create Account <i class="fas fa-arrow-right"></i>
+          </button>
+
+          <div class="auth-divider"><span>or</span></div>
+
+          <button class="google-btn" onclick="googleSignin()">
+            <img src="https://www.google.com/favicon.ico" width="18" height="18" alt="Google"/>
+            Continue with Google
+          </button>
+        </div>
+
+        <!-- SHOP OWNER NOTE -->
+        <div class="shop-owner-note" id="shopOwnerNote" style="display:none">
+          <i class="fas fa-store"></i>
+          <p>Want to list your shop? <a href="register-shop.html">Register your shop here</a> — it's free!</p>
+        </div>
+
+      </div>
+
+      <p class="auth-back">
+        <a href="index.html"><i class="fas fa-arrow-left"></i> Back to Home</a>
+      </p>
+    </div>
+
+  </div>
+
+  <script src="js/auth.js"></script>
+</body>
+</html>

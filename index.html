@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Local for Vocal — Discover Your Neighbourhood</title>
+  <link rel="stylesheet" href="css/style.css"/>
+  <link rel="stylesheet" href="css/responsive.css"/>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+</head>
+<body>
+
+  <!-- NAVBAR -->
+  <nav class="navbar">
+    <div class="nav-brand">
+      <span class="brand-icon">🌿</span>
+      <span class="brand-name">Local<span class="accent">4</span>Vocal</span>
+    </div>
+    <div class="nav-links">
+      <a href="explore.html">Explore</a>
+      <a href="register-shop.html" class="nav-btn-outline">List Your Shop</a>
+      <a href="login.html" class="nav-btn-fill">Sign In</a>
+    </div>
+    <div class="hamburger" onclick="toggleMenu()">
+      <span></span><span></span><span></span>
+    </div>
+  </nav>
+
+  <!-- MOBILE MENU -->
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="explore.html">Explore</a>
+    <a href="register-shop.html">List Your Shop</a>
+    <a href="login.html">Sign In</a>
+  </div>
+
+  <!-- HERO SECTION -->
+  <section class="hero">
+    <div class="hero-bg-shapes">
+      <div class="shape shape1"></div>
+      <div class="shape shape2"></div>
+      <div class="shape shape3"></div>
+    </div>
+    <div class="hero-content">
+      <div class="location-bar" id="locationBar">
+        <i class="fas fa-location-dot"></i>
+        <span id="locationText">Detecting your location...</span>
+        <button onclick="detectLocation()" class="refresh-loc"><i class="fas fa-rotate-right"></i></button>
+      </div>
+      <h1 class="hero-title">
+        Your <span class="highlight">Neighbourhood</span><br/>Shops, Online.
+      </h1>
+      <p class="hero-sub">Discover local carpenters, doctors, grocers, goldsmiths and more — all near you.</p>
+
+      <!-- SEARCH BAR -->
+      <div class="search-box">
+        <i class="fas fa-search search-icon"></i>
+        <input type="text" id="searchInput" placeholder="Search shops, services, medicines..." />
+        <button class="search-btn" onclick="doSearch()">Search</button>
+      </div>
+
+      <!-- RADIUS SELECTOR -->
+      <div class="radius-selector">
+        <span class="radius-label">Show shops within:</span>
+        <div class="radius-options">
+          <button class="radius-btn active" data-km="5" onclick="selectRadius(this)">5 km</button>
+          <button class="radius-btn" data-km="10" onclick="selectRadius(this)">10 km</button>
+          <button class="radius-btn" data-km="20" onclick="selectRadius(this)">20 km</button>
+          <button class="radius-btn" data-km="30" onclick="selectRadius(this)">30 km</button>
+          <button class="radius-btn" data-km="50" onclick="selectRadius(this)">50 km</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="hero-visual">
+      <div class="map-card">
+        <div class="map-pin-group">
+          <div class="pin pin1"><i class="fas fa-store"></i></div>
+          <div class="pin pin2"><i class="fas fa-utensils"></i></div>
+          <div class="pin pin3"><i class="fas fa-pills"></i></div>
+          <div class="pin pin4"><i class="fas fa-hammer"></i></div>
+          <div class="pin pin-you">You</div>
+        </div>
+        <div class="radius-circle"></div>
+        <p class="map-label">📍 Live shops near you</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- CATEGORIES SECTION -->
+  <section class="categories-section">
+    <h2 class="section-title">Browse by Category</h2>
+    <p class="section-sub">From everyday needs to skilled craftsmen — find them all nearby</p>
+    <div class="categories-grid">
+      <a href="explore.html?cat=medical" class="cat-card">
+        <div class="cat-icon" style="background:#e8f5e9">💊</div>
+        <span>Medical</span>
+      </a>
+      <a href="explore.html?cat=food" class="cat-card">
+        <div class="cat-icon" style="background:#fff3e0">🍽️</div>
+        <span>Food & Restaurant</span>
+      </a>
+      <a href="explore.html?cat=carpenter" class="cat-card">
+        <div class="cat-icon" style="background:#fce4ec">🪵</div>
+        <span>Carpenter</span>
+      </a>
+      <a href="explore.html?cat=goldsmith" class="cat-card">
+        <div class="cat-icon" style="background:#fffde7">💍</div>
+        <span>Goldsmith</span>
+      </a>
+      <a href="explore.html?cat=tailor" class="cat-card">
+        <div class="cat-icon" style="background:#f3e5f5">🧵</div>
+        <span>Tailor & Boutique</span>
+      </a>
+      <a href="explore.html?cat=electronics" class="cat-card">
+        <div class="cat-icon" style="background:#e3f2fd">⚡</div>
+        <span>Electronics</span>
+      </a>
+      <a href="explore.html?cat=salon" class="cat-card">
+        <div class="cat-icon" style="background:#fce4ec">✂️</div>
+        <span>Salon & Beauty</span>
+      </a>
+      <a href="explore.html?cat=grocery" class="cat-card">
+        <div class="cat-icon" style="background:#e8f5e9">🛒</div>
+        <span>Grocery & Kirana</span>
+      </a>
+      <a href="explore.html?cat=plumber" class="cat-card">
+        <div class="cat-icon" style="background:#e0f7fa">🔧</div>
+        <span>Plumber & Electrician</span>
+      </a>
+      <a href="explore.html?cat=auto" class="cat-card">
+        <div class="cat-icon" style="background:#fff8e1">🚗</div>
+        <span>Auto & Vehicle</span>
+      </a>
+      <a href="explore.html?cat=education" class="cat-card">
+        <div class="cat-icon" style="background:#e8eaf6">📚</div>
+        <span>Education & Tuition</span>
+      </a>
+      <a href="explore.html?cat=all" class="cat-card cat-all">
+        <div class="cat-icon" style="background:#e8f5e9">🔍</div>
+        <span>View All</span>
+      </a>
+    </div>
+  </section>
+
+  <!-- POST REQUIREMENT BANNER -->
+  <section class="requirement-banner">
+    <div class="req-content">
+      <div class="req-text">
+        <h2>Can't find what you need?</h2>
+        <p>Post your requirement — nearby shops will respond with availability and quotes.</p>
+      </div>
+      <a href="post-requirement.html" class="req-btn">
+        <i class="fas fa-plus-circle"></i> Post a Requirement
+      </a>
+    </div>
+  </section>
+
+  <!-- FEATURED SHOPS -->
+  <section class="featured-section">
+    <div class="section-header">
+      <div>
+        <h2 class="section-title">Featured Shops Near You</h2>
+        <p class="section-sub">Top-rated local businesses in your area</p>
+      </div>
+      <a href="explore.html" class="view-all-btn">View All <i class="fas fa-arrow-right"></i></a>
+    </div>
+    <div class="shops-grid" id="featuredShops">
+      <!-- Sample cards — will be replaced by Firebase data -->
+      <div class="shop-card featured-card">
+        <div class="shop-img-wrap">
+          <div class="shop-img-placeholder">💊</div>
+          <span class="badge featured-badge">⭐ Featured</span>
+          <span class="badge open-badge">Open Now</span>
+        </div>
+        <div class="shop-info">
+          <h3>City Medical Store</h3>
+          <p class="shop-cat"><i class="fas fa-tag"></i> Medical • Pharmacy</p>
+          <p class="shop-tags">Paracetamol • BP Medicines • Surgical</p>
+          <div class="shop-footer">
+            <span class="distance"><i class="fas fa-location-dot"></i> 1.2 km</span>
+            <span class="rating"><i class="fas fa-star"></i> 4.8</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="shop-card featured-card">
+        <div class="shop-img-wrap">
+          <div class="shop-img-placeholder">🪵</div>
+          <span class="badge featured-badge">⭐ Featured</span>
+          <span class="badge open-badge">Open Now</span>
+        </div>
+        <div class="shop-info">
+          <h3>Ramesh Furniture Works</h3>
+          <p class="shop-cat"><i class="fas fa-tag"></i> Carpenter & Furniture</p>
+          <p class="shop-tags">Custom Furniture • Doors • Modular Kitchen</p>
+          <div class="shop-footer">
+            <span class="distance"><i class="fas fa-location-dot"></i> 3.4 km</span>
+            <span class="rating"><i class="fas fa-star"></i> 4.6</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="shop-card featured-card">
+        <div class="shop-img-wrap">
+          <div class="shop-img-placeholder">💍</div>
+          <span class="badge featured-badge">⭐ Featured</span>
+          <span class="badge closed-badge">Closed</span>
+        </div>
+        <div class="shop-info">
+          <h3>Shree Jewellers</h3>
+          <p class="shop-cat"><i class="fas fa-tag"></i> Goldsmith & Jewellery</p>
+          <p class="shop-tags">Ring Resizing • Custom Jewellery • Repair</p>
+          <div class="shop-footer">
+            <span class="distance"><i class="fas fa-location-dot"></i> 2.1 km</span>
+            <span class="rating"><i class="fas fa-star"></i> 4.9</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- HOW IT WORKS -->
+  <section class="how-section">
+    <h2 class="section-title">How It Works</h2>
+    <p class="section-sub">Three simple steps to connect with your local community</p>
+    <div class="steps-grid">
+      <div class="step-card">
+        <div class="step-num">01</div>
+        <div class="step-icon">📍</div>
+        <h3>Set Your Location</h3>
+        <p>Allow location access or type your area. Choose your preferred radius — 5km, 10km, 20km or more.</p>
+      </div>
+      <div class="step-card">
+        <div class="step-num">02</div>
+        <div class="step-icon">🔍</div>
+        <h3>Explore Shops</h3>
+        <p>Browse by category or search for a specific product or service. View shop profiles, photos and reviews.</p>
+      </div>
+      <div class="step-card">
+        <div class="step-num">03</div>
+        <div class="step-icon">💬</div>
+        <h3>Connect & Buy</h3>
+        <p>Message the shop directly, ask about availability, get quotes, and visit or order locally.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- LIST YOUR SHOP CTA -->
+  <section class="cta-section">
+    <div class="cta-content">
+      <h2>Own a Local Business?</h2>
+      <p>Join thousands of local shops already on Local for Vocal. Get discovered by customers within your area — for free.</p>
+      <a href="register-shop.html" class="cta-btn">Register Your Shop Free <i class="fas fa-arrow-right"></i></a>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <span class="brand-name">Local<span class="accent">4</span>Vocal</span>
+        <p>Connecting local businesses with their community.</p>
+      </div>
+      <div class="footer-links">
+        <h4>Explore</h4>
+        <a href="explore.html">Browse Shops</a>
+        <a href="explore.html">Categories</a>
+        <a href="post-requirement.html">Post Requirement</a>
+      </div>
+      <div class="footer-links">
+        <h4>Business</h4>
+        <a href="register-shop.html">List Your Shop</a>
+        <a href="#">Subscription Plans</a>
+        <a href="#">Shop Dashboard</a>
+      </div>
+      <div class="footer-links">
+        <h4>Company</h4>
+        <a href="#">About Us</a>
+        <a href="#">Contact</a>
+        <a href="#">Privacy Policy</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2025 Local for Vocal. Made with 💚 for local communities.</p>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Shop Profile — Local for Vocal</title>
+  <link rel="stylesheet" href="css/style.css"/>
+  <link rel="stylesheet" href="css/shop-profile.css"/>
+  <link rel="stylesheet" href="css/responsive.css"/>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+</head>
+<body>
+
+  <!-- NAVBAR -->
+  <nav class="navbar">
+    <div class="nav-brand">
+      <a href="index.html" style="display:flex;align-items:center;gap:8px;text-decoration:none;color:inherit">
+        <span class="brand-icon">🌿</span>
+        <span class="brand-name">Local<span class="accent">4</span>Vocal</span>
+      </a>
+    </div>
+    <div class="nav-links">
+      <a href="explore.html">Explore</a>
+      <a href="register-shop.html" class="nav-btn-outline">List Your Shop</a>
+      <a href="login.html" class="nav-btn-fill">Sign In</a>
+    </div>
+    <div class="hamburger" onclick="toggleMenu()">
+      <span></span><span></span><span></span>
+    </div>
+  </nav>
+
+  <!-- MOBILE MENU -->
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="index.html">Home</a>
+    <a href="explore.html">Explore</a>
+    <a href="login.html">Sign In</a>
+  </div>
+
+  <!-- BREADCRUMB -->
+  <div class="breadcrumb">
+    <a href="index.html">Home</a>
+    <i class="fas fa-chevron-right"></i>
+    <a href="explore.html">Explore</a>
+    <i class="fas fa-chevron-right"></i>
+    <a href="explore.html?cat=medical">Medical</a>
+    <i class="fas fa-chevron-right"></i>
+    <span>City Medical Store</span>
+  </div>
+
+  <!-- SHOP BANNER -->
+  <div class="shop-banner">
+    <div class="shop-banner-bg">
+      <div class="banner-emoji">💊</div>
+    </div>
+    <div class="shop-banner-overlay"></div>
+    <div class="shop-banner-content">
+      <div class="shop-avatar">💊</div>
+      <div class="shop-banner-info">
+        <div class="shop-name-row">
+          <h1>City Medical Store</h1>
+          <span class="featured-tag">⭐ Featured</span>
+        </div>
+        <p class="shop-category"><i class="fas fa-tag"></i> Medical • Pharmacy</p>
+        <div class="shop-meta-row">
+          <span class="open-status open"><i class="fas fa-circle"></i> Open Now</span>
+          <span><i class="fas fa-location-dot"></i> 1.2 km away</span>
+          <span><i class="fas fa-star"></i> 4.8 (124 reviews)</span>
+          <span><i class="fas fa-clock"></i> Open till 10 PM</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- STICKY ACTION BAR -->
+  <div class="sticky-actions" id="stickyActions">
+    <div class="sticky-shop-name">City Medical Store</div>
+    <div class="sticky-btns">
+      <button class="sticky-btn call" onclick="callShop()"><i class="fas fa-phone"></i> Call</button>
+      <button class="sticky-btn message" onclick="openChat()"><i class="fas fa-message"></i> Message</button>
+      <button class="sticky-btn directions" onclick="getDirections()"><i class="fas fa-diamond-turn-right"></i> Directions</button>
+      <button class="sticky-btn save" id="saveBtn" onclick="toggleSave()"><i class="far fa-bookmark"></i> Save</button>
+    </div>
+  </div>
+
+  <!-- MAIN LAYOUT -->
+  <div class="profile-layout">
+
+    <!-- LEFT COLUMN -->
+    <div class="profile-main">
+
+      <!-- TODAY'S OFFER -->
+      <div class="offer-card">
+        <div class="offer-icon">🎉</div>
+        <div class="offer-text">
+          <h4>Today's Special</h4>
+          <p>10% off on all diabetic medicines. Valid today only!</p>
+        </div>
+        <span class="offer-badge">Today</span>
+      </div>
+
+      <!-- TABS -->
+      <div class="profile-tabs">
+        <button class="tab-btn active" onclick="switchTab('overview', this)">Overview</button>
+        <button class="tab-btn" onclick="switchTab('products', this)">Products & Services</button>
+        <button class="tab-btn" onclick="switchTab('gallery', this)">Gallery</button>
+        <button class="tab-btn" onclick="switchTab('reviews', this)">Reviews (124)</button>
+      </div>
+
+      <!-- TAB: OVERVIEW -->
+      <div class="tab-content" id="tab-overview">
+        <div class="info-section">
+          <h3 class="section-heading">About This Shop</h3>
+          <p class="about-text">City Medical Store has been serving the local community for over 15 years. We stock a wide range of medicines, surgical equipment, and health products. Our trained staff can help you find the right medicine and advise on dosage. We also accept prescriptions and offer home delivery for orders above ₹500.</p>
+        </div>
+
+        <div class="info-section">
+          <h3 class="section-heading">Shop Information</h3>
+          <div class="info-grid">
+            <div class="info-item">
+              <i class="fas fa-clock"></i>
+              <div>
+                <span class="info-label">Timings</span>
+                <span class="info-value">Mon–Sat: 8 AM – 10 PM<br/>Sun: 9 AM – 8 PM</span>
+              </div>
+            </div>
+            <div class="info-item">
+              <i class="fas fa-location-dot"></i>
+              <div>
+                <span class="info-label">Address</span>
+                <span class="info-value">12, Gandhi Nagar, Near Bus Stand, Pune – 411001</span>
+              </div>
+            </div>
+            <div class="info-item">
+              <i class="fas fa-phone"></i>
+              <div>
+                <span class="info-label">Phone</span>
+                <span class="info-value">+91 98765 43210</span>
+              </div>
+            </div>
+            <div class="info-item">
+              <i class="fas fa-truck"></i>
+              <div>
+                <span class="info-label">Home Delivery</span>
+                <span class="info-value">Available above ₹500 order</span>
+              </div>
+            </div>
+            <div class="info-item">
+              <i class="fas fa-indian-rupee-sign"></i>
+              <div>
+                <span class="info-label">Payment</span>
+                <span class="info-value">Cash, UPI, Card accepted</span>
+              </div>
+            </div>
+            <div class="info-item">
+              <i class="fas fa-certificate"></i>
+              <div>
+                <span class="info-label">License</span>
+                <span class="info-value">Drug License: MH-PN-2009-1234</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- MAP PLACEHOLDER -->
+        <div class="info-section">
+          <h3 class="section-heading">Location</h3>
+          <div class="map-embed-placeholder">
+            <i class="fas fa-map-location-dot"></i>
+            <p>12, Gandhi Nagar, Near Bus Stand, Pune</p>
+            <button class="get-dir-btn" onclick="getDirections()">
+              <i class="fas fa-diamond-turn-right"></i> Get Directions
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- TAB: PRODUCTS -->
+      <div class="tab-content" id="tab-products" style="display:none">
+        <div class="info-section">
+          <h3 class="section-heading">Products & Services</h3>
+          <div class="tags-grid">
+            <span class="product-tag">💊 Paracetamol</span>
+            <span class="product-tag">💊 Amoxicillin</span>
+            <span class="product-tag">🩸 BP Medicines</span>
+            <span class="product-tag">🩺 Diabetic Supplies</span>
+            <span class="product-tag">🩹 Surgical Items</span>
+            <span class="product-tag">💉 Injections</span>
+            <span class="product-tag">🧴 Skin Care</span>
+            <span class="product-tag">👶 Baby Products</span>
+            <span class="product-tag">🌡️ Thermometers</span>
+            <span class="product-tag">😷 Masks & Gloves</span>
+            <span class="product-tag">📋 Prescription Medicines</span>
+            <span class="product-tag">🚑 First Aid Kit</span>
+          </div>
+        </div>
+
+        <div class="info-section">
+          <h3 class="section-heading">Ask About a Product</h3>
+          <div class="ask-product-box">
+            <input type="text" id="productQuery" placeholder="e.g. Do you have Paracetamol 500mg?" class="ask-input"/>
+            <button class="ask-btn" onclick="askProduct()">
+              <i class="fas fa-paper-plane"></i> Ask Shop
+            </button>
+          </div>
+          <p class="ask-hint">The shop will reply to your message directly.</p>
+        </div>
+      </div>
+
+      <!-- TAB: GALLERY -->
+      <div class="tab-content" id="tab-gallery" style="display:none">
+        <div class="info-section">
+          <h3 class="section-heading">Shop Gallery</h3>
+          <div class="gallery-grid">
+            <div class="gallery-item">🏪</div>
+            <div class="gallery-item">💊</div>
+            <div class="gallery-item">🩺</div>
+            <div class="gallery-item">🧴</div>
+            <div class="gallery-item">📦</div>
+            <div class="gallery-item">🏥</div>
+          </div>
+          <p class="gallery-hint">Shop photos will appear here once uploaded by the owner.</p>
+        </div>
+      </div>
+
+      <!-- TAB: REVIEWS -->
+      <div class="tab-content" id="tab-reviews" style="display:none">
+        <div class="info-section">
+          <h3 class="section-heading">Customer Reviews</h3>
+
+          <!-- RATING SUMMARY -->
+          <div class="rating-summary">
+            <div class="rating-big">
+              <span class="rating-number">4.8</span>
+              <div class="stars-row">
+                <i class="fas fa-star"></i><i class="fas fa-star"></i>
+                <i class="fas fa-star"></i><i class="fas fa-star"></i>
+                <i class="fas fa-star-half-stroke"></i>
+              </div>
+              <span class="rating-total">124 reviews</span>
+            </div>
+            <div class="rating-bars">
+              <div class="rating-bar-row"><span>5★</span><div class="bar"><div class="bar-fill" style="width:72%"></div></div><span>72%</span></div>
+              <div class="rating-bar-row"><span>4★</span><div class="bar"><div class="bar-fill" style="width:18%"></div></div><span>18%</span></div>
+              <div class="rating-bar-row"><span>3★</span><div class="bar"><div class="bar-fill" style="width:6%"></div></div><span>6%</span></div>
+              <div class="rating-bar-row"><span>2★</span><div class="bar"><div class="bar-fill" style="width:2%"></div></div><span>2%</span></div>
+              <div class="rating-bar-row"><span>1★</span><div class="bar"><div class="bar-fill" style="width:2%"></div></div><span>2%</span></div>
+            </div>
+          </div>
+
+          <!-- WRITE REVIEW -->
+          <div class="write-review-box">
+            <h4>Write a Review</h4>
+            <div class="star-picker">
+              <i class="far fa-star star-pick" onclick="pickStar(1)"></i>
+              <i class="far fa-star star-pick" onclick="pickStar(2)"></i>
+              <i class="far fa-star star-pick" onclick="pickStar(3)"></i>
+              <i class="far fa-star star-pick" onclick="pickStar(4)"></i>
+              <i class="far fa-star star-pick" onclick="pickStar(5)"></i>
+            </div>
+            <textarea id="reviewText" placeholder="Share your experience with this shop..." class="review-textarea"></textarea>
+            <button class="submit-review-btn" onclick="submitReview()">Submit Review</button>
+          </div>
+
+          <!-- REVIEW CARDS -->
+          <div class="reviews-list">
+            <div class="review-card">
+              <div class="review-header">
+                <div class="reviewer-avatar">R</div>
+                <div>
+                  <span class="reviewer-name">Rahul M.</span>
+                  <div class="review-stars">
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                  </div>
+                </div>
+                <span class="review-date">2 days ago</span>
+              </div>
+              <p class="review-text">Very helpful staff. Got my medicines quickly and they even checked if I needed anything else. Great service!</p>
+            </div>
+
+            <div class="review-card">
+              <div class="review-header">
+                <div class="reviewer-avatar">P</div>
+                <div>
+                  <span class="reviewer-name">Priya S.</span>
+                  <div class="review-stars">
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i>
+                    <i class="fas fa-star-half-stroke"></i>
+                  </div>
+                </div>
+                <span class="review-date">1 week ago</span>
+              </div>
+              <p class="review-text">Always stocked with everything I need. Open late which is very convenient. Prices are fair too.</p>
+            </div>
+
+            <div class="review-card">
+              <div class="review-header">
+                <div class="reviewer-avatar">A</div>
+                <div>
+                  <span class="reviewer-name">Amit K.</span>
+                  <div class="review-stars">
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                  </div>
+                </div>
+                <span class="review-date">2 weeks ago</span>
+              </div>
+              <p class="review-text">Home delivery was fast and medicines were properly packed. Will order again.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- RIGHT COLUMN -->
+    <aside class="profile-sidebar">
+
+      <!-- QUICK ACTIONS -->
+      <div class="sidebar-card">
+        <h3 class="sidebar-card-title">Contact Shop</h3>
+        <button class="contact-btn call-full" onclick="callShop()">
+          <i class="fas fa-phone"></i> Call Now
+        </button>
+        <button class="contact-btn msg-full" onclick="openChat()">
+          <i class="fas fa-message"></i> Send Message
+        </button>
+        <button class="contact-btn whatsapp-full" onclick="openWhatsApp()">
+          <i class="fab fa-whatsapp"></i> WhatsApp
+        </button>
+        <button class="contact-btn dir-full" onclick="getDirections()">
+          <i class="fas fa-diamond-turn-right"></i> Get Directions
+        </button>
+        <div class="share-row">
+          <button class="share-btn" onclick="toggleSave()" id="saveBtn2">
+            <i class="far fa-bookmark"></i> Save Shop
+          </button>
+          <button class="share-btn" onclick="shareShop()">
+            <i class="fas fa-share-nodes"></i> Share
+          </button>
+        </div>
+      </div>
+
+      <!-- OPEN HOURS -->
+      <div class="sidebar-card">
+        <h3 class="sidebar-card-title">Opening Hours</h3>
+        <div class="hours-list">
+          <div class="hours-row today">
+            <span>Monday</span><span class="hours-time">8 AM – 10 PM</span>
+          </div>
+          <div class="hours-row">
+            <span>Tuesday</span><span class="hours-time">8 AM – 10 PM</span>
+          </div>
+          <div class="hours-row">
+            <span>Wednesday</span><span class="hours-time">8 AM – 10 PM</span>
+          </div>
+          <div class="hours-row">
+            <span>Thursday</span><span class="hours-time">8 AM – 10 PM</span>
+          </div>
+          <div class="hours-row">
+            <span>Friday</span><span class="hours-time">8 AM – 10 PM</span>
+          </div>
+          <div class="hours-row">
+            <span>Saturday</span><span class="hours-time">8 AM – 10 PM</span>
+          </div>
+          <div class="hours-row">
+            <span>Sunday</span><span class="hours-time">9 AM – 8 PM</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- REPORT -->
+      <div class="sidebar-card report-card">
+        <button class="report-btn" onclick="reportShop()">
+          <i class="fas fa-flag"></i> Report this Shop
+        </button>
+      </div>
+
+    </aside>
+  </div>
+
+  <!-- CHAT DRAWER -->
+  <div class="chat-drawer" id="chatDrawer">
+    <div class="chat-header">
+      <div class="chat-shop-info">
+        <span class="chat-avatar">💊</span>
+        <div>
+          <h4>City Medical Store</h4>
+          <span class="chat-status">Usually replies in 1 hour</span>
+        </div>
+      </div>
+      <button class="chat-close" onclick="closeChat()"><i class="fas fa-xmark"></i></button>
+    </div>
+    <div class="chat-messages" id="chatMessages">
+      <div class="chat-msg shop-msg">
+        <p>Hello! Welcome to City Medical Store. How can I help you today?</p>
+        <span class="msg-time">Just now</span>
+      </div>
+    </div>
+    <div class="chat-input-row">
+      <input type="text" id="chatInput" placeholder="Type your message..." onkeypress="chatEnter(event)"/>
+      <label class="chat-attach" title="Attach photo">
+        <i class="fas fa-paperclip"></i>
+        <input type="file" accept="image/*" style="display:none" onchange="attachPhoto(this)"/>
+      </label>
+      <button class="chat-send" onclick="sendMessage()"><i class="fas fa-paper-plane"></i></button>
+    </div>
+  </div>
+  <div class="chat-overlay" id="chatOverlay" onclick="closeChat()"></div>
+
+  <script src="js/main.js"></script>
+  <script src="js/shop-profile.js"></script>
+</body>
+</html>
