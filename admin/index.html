@@ -1,0 +1,674 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Admin Panel — Local for Vocal</title>
+  <link rel="stylesheet" href="../css/style.css"/>
+  <link rel="stylesheet" href="../css/admin.css"/>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+</head>
+<body class="admin-body">
+
+  <!-- ADMIN LOGIN SCREEN -->
+  <div class="admin-login-screen" id="adminLoginScreen">
+    <div class="admin-login-card">
+      <div class="admin-login-icon">🔐</div>
+      <h2>Admin Access</h2>
+      <p>This area is restricted to Local for Vocal administrators only.</p>
+      <div class="form-group">
+        <label class="form-label">Admin Password</label>
+        <input type="password" id="adminPassword" class="form-input" placeholder="Enter admin password" onkeypress="adminLoginEnter(event)"/>
+      </div>
+      <button class="admin-login-btn" onclick="adminLogin()">
+        <i class="fas fa-lock-open"></i> Access Admin Panel
+      </button>
+      <a href="../index.html" class="admin-back-link">← Back to website</a>
+    </div>
+  </div>
+
+  <!-- ADMIN DASHBOARD -->
+  <div class="admin-dashboard" id="adminDashboard" style="display:none">
+
+    <!-- SIDEBAR -->
+    <aside class="admin-sidebar" id="adminSidebar">
+      <div class="admin-brand">
+        <span>🌿</span>
+        <div>
+          <span class="brand-name">Local<span class="accent">4</span>Vocal</span>
+          <span class="admin-label">Admin Panel</span>
+        </div>
+      </div>
+
+      <nav class="admin-nav">
+        <a href="#" class="admin-nav-item active" onclick="adminSwitchTab('overview', this)">
+          <i class="fas fa-chart-pie"></i> Overview
+        </a>
+        <a href="#" class="admin-nav-item" onclick="adminSwitchTab('shops', this)">
+          <i class="fas fa-store"></i> Shops
+          <span class="admin-nav-badge pending">4 Pending</span>
+        </a>
+        <a href="#" class="admin-nav-item" onclick="adminSwitchTab('users', this)">
+          <i class="fas fa-users"></i> Users
+        </a>
+        <a href="#" class="admin-nav-item" onclick="adminSwitchTab('requirements', this)">
+          <i class="fas fa-clipboard-list"></i> Requirements
+        </a>
+        <a href="#" class="admin-nav-item" onclick="adminSwitchTab('subscriptions', this)">
+          <i class="fas fa-crown"></i> Subscriptions
+        </a>
+        <a href="#" class="admin-nav-item" onclick="adminSwitchTab('reviews', this)">
+          <i class="fas fa-star"></i> Reviews
+        </a>
+        <a href="#" class="admin-nav-item" onclick="adminSwitchTab('reports', this)">
+          <i class="fas fa-flag"></i> Reports
+          <span class="admin-nav-badge danger">2 New</span>
+        </a>
+        <a href="#" class="admin-nav-item" onclick="adminSwitchTab('categories', this)">
+          <i class="fas fa-grip"></i> Categories
+        </a>
+      </nav>
+
+      <div class="admin-sidebar-footer">
+        <a href="../index.html" class="admin-visit-btn" target="_blank">
+          <i class="fas fa-arrow-up-right-from-square"></i> Visit Website
+        </a>
+        <button class="admin-logout-btn" onclick="adminLogout()">
+          <i class="fas fa-right-from-bracket"></i> Logout
+        </button>
+      </div>
+    </aside>
+
+    <!-- MAIN CONTENT -->
+    <div class="admin-main">
+
+      <!-- TOPBAR -->
+      <header class="admin-topbar">
+        <button class="admin-sidebar-toggle" onclick="toggleAdminSidebar()">
+          <i class="fas fa-bars"></i>
+        </button>
+        <div class="admin-topbar-title" id="adminTopbarTitle">Overview</div>
+        <div class="admin-topbar-right">
+          <span class="admin-badge">Super Admin</span>
+          <span class="admin-time" id="adminTime"></span>
+        </div>
+      </header>
+
+      <!-- ===== OVERVIEW TAB ===== -->
+      <div class="admin-tab active" id="adminTab-overview">
+        <div class="admin-page-header">
+          <h2>Dashboard Overview</h2>
+          <p>Everything happening on Local for Vocal right now</p>
+        </div>
+
+        <div class="admin-stats-grid">
+          <div class="admin-stat-card">
+            <div class="ast-icon" style="background:#e8f5e9"><i class="fas fa-store" style="color:var(--green-main)"></i></div>
+            <div class="ast-info">
+              <span class="ast-value">142</span>
+              <span class="ast-label">Total Shops</span>
+              <span class="ast-sub">4 pending approval</span>
+            </div>
+          </div>
+          <div class="admin-stat-card">
+            <div class="ast-icon" style="background:#e3f2fd"><i class="fas fa-users" style="color:#1565c0"></i></div>
+            <div class="ast-info">
+              <span class="ast-value">1,284</span>
+              <span class="ast-label">Total Users</span>
+              <span class="ast-sub">28 joined this week</span>
+            </div>
+          </div>
+          <div class="admin-stat-card">
+            <div class="ast-icon" style="background:#fff3e0"><i class="fas fa-clipboard-list" style="color:#e65100"></i></div>
+            <div class="ast-info">
+              <span class="ast-value">89</span>
+              <span class="ast-label">Requirements Posted</span>
+              <span class="ast-sub">12 active today</span>
+            </div>
+          </div>
+          <div class="admin-stat-card">
+            <div class="ast-icon" style="background:#fce4ec"><i class="fas fa-crown" style="color:#c62828"></i></div>
+            <div class="ast-info">
+              <span class="ast-value">23</span>
+              <span class="ast-label">Featured Subscriptions</span>
+              <span class="ast-sub">₹11,477 this month</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- PENDING SHOPS ALERT -->
+        <div class="admin-alert">
+          <i class="fas fa-clock"></i>
+          <div>
+            <strong>4 shops waiting for approval</strong>
+            <p>New shop registrations need your review before going live.</p>
+          </div>
+          <button onclick="adminSwitchTab('shops', document.querySelector('[onclick*=shops]'))">
+            Review Now <i class="fas fa-arrow-right"></i>
+          </button>
+        </div>
+
+        <!-- RECENT ACTIVITY -->
+        <div class="admin-section-card">
+          <h3 class="admin-section-title">Recent Activity</h3>
+          <div class="activity-list">
+            <div class="activity-item">
+              <div class="activity-icon new"><i class="fas fa-store"></i></div>
+              <div class="activity-info">
+                <span class="activity-title">New shop registered — <strong>Sharma Tailors</strong></span>
+                <span class="activity-time">5 minutes ago</span>
+              </div>
+              <span class="activity-badge pending-badge">Pending</span>
+            </div>
+            <div class="activity-item">
+              <div class="activity-icon user"><i class="fas fa-user"></i></div>
+              <div class="activity-info">
+                <span class="activity-title">New user joined — <strong>Priya M.</strong></span>
+                <span class="activity-time">12 minutes ago</span>
+              </div>
+            </div>
+            <div class="activity-item">
+              <div class="activity-icon req"><i class="fas fa-clipboard-list"></i></div>
+              <div class="activity-info">
+                <span class="activity-title">Requirement posted — <strong>Need Paracetamol 500mg</strong></span>
+                <span class="activity-time">30 minutes ago</span>
+              </div>
+            </div>
+            <div class="activity-item">
+              <div class="activity-icon sub"><i class="fas fa-crown"></i></div>
+              <div class="activity-info">
+                <span class="activity-title">Subscription purchased — <strong>City Medical Store</strong></span>
+                <span class="activity-time">1 hour ago</span>
+              </div>
+              <span class="activity-badge success-badge">₹499</span>
+            </div>
+            <div class="activity-item">
+              <div class="activity-icon report"><i class="fas fa-flag"></i></div>
+              <div class="activity-info">
+                <span class="activity-title">Shop reported — <strong>XYZ Electronics</strong></span>
+                <span class="activity-time">2 hours ago</span>
+              </div>
+              <span class="activity-badge danger-badge">Report</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ===== SHOPS TAB ===== -->
+      <div class="admin-tab" id="adminTab-shops" style="display:none">
+        <div class="admin-page-header">
+          <h2>Manage Shops</h2>
+          <p>Approve, suspend or manage all registered shops</p>
+        </div>
+
+        <!-- FILTER BAR -->
+        <div class="admin-filter-bar">
+          <div class="admin-search-wrap">
+            <i class="fas fa-search"></i>
+            <input type="text" placeholder="Search shops by name, category, city..." id="shopSearchInput" oninput="filterShops()"/>
+          </div>
+          <select class="admin-select" id="shopStatusFilter" onchange="filterShops()">
+            <option value="all">All Status</option>
+            <option value="pending">Pending</option>
+            <option value="active">Active</option>
+            <option value="featured">Featured</option>
+            <option value="suspended">Suspended</option>
+          </select>
+          <select class="admin-select" id="shopCategoryFilter" onchange="filterShops()">
+            <option value="all">All Categories</option>
+            <option value="medical">Medical</option>
+            <option value="food">Food</option>
+            <option value="carpenter">Carpenter</option>
+            <option value="goldsmith">Goldsmith</option>
+            <option value="tailor">Tailor</option>
+          </select>
+        </div>
+
+        <!-- SHOPS TABLE -->
+        <div class="admin-table-wrap">
+          <table class="admin-table" id="shopsTable">
+            <thead>
+              <tr>
+                <th>Shop</th>
+                <th>Category</th>
+                <th>Owner</th>
+                <th>City</th>
+                <th>Status</th>
+                <th>Subscription</th>
+                <th>Registered</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr data-status="pending">
+                <td><div class="shop-cell"><span class="shop-emoji">🧵</span><span>Sharma Tailors</span></div></td>
+                <td>Tailor & Boutique</td>
+                <td>Ravi Sharma</td>
+                <td>Pune</td>
+                <td><span class="status-badge pending-status">Pending</span></td>
+                <td><span class="sub-badge free-sub">Free</span></td>
+                <td>Today</td>
+                <td class="action-cell">
+                  <button class="action-icon-btn approve" onclick="approveShop(this)" title="Approve"><i class="fas fa-check"></i></button>
+                  <button class="action-icon-btn reject" onclick="rejectShop(this)" title="Reject"><i class="fas fa-xmark"></i></button>
+                  <button class="action-icon-btn view" onclick="viewShop(this)" title="View"><i class="fas fa-eye"></i></button>
+                </td>
+              </tr>
+              <tr data-status="pending">
+                <td><div class="shop-cell"><span class="shop-emoji">🔧</span><span>Kumar Plumbing</span></div></td>
+                <td>Plumber</td>
+                <td>Suresh Kumar</td>
+                <td>Mumbai</td>
+                <td><span class="status-badge pending-status">Pending</span></td>
+                <td><span class="sub-badge free-sub">Free</span></td>
+                <td>Today</td>
+                <td class="action-cell">
+                  <button class="action-icon-btn approve" onclick="approveShop(this)" title="Approve"><i class="fas fa-check"></i></button>
+                  <button class="action-icon-btn reject" onclick="rejectShop(this)" title="Reject"><i class="fas fa-xmark"></i></button>
+                  <button class="action-icon-btn view" onclick="viewShop(this)" title="View"><i class="fas fa-eye"></i></button>
+                </td>
+              </tr>
+              <tr data-status="pending">
+                <td><div class="shop-cell"><span class="shop-emoji">💍</span><span>Mehta Jewellers</span></div></td>
+                <td>Goldsmith</td>
+                <td>Raj Mehta</td>
+                <td>Surat</td>
+                <td><span class="status-badge pending-status">Pending</span></td>
+                <td><span class="sub-badge free-sub">Free</span></td>
+                <td>Yesterday</td>
+                <td class="action-cell">
+                  <button class="action-icon-btn approve" onclick="approveShop(this)" title="Approve"><i class="fas fa-check"></i></button>
+                  <button class="action-icon-btn reject" onclick="rejectShop(this)" title="Reject"><i class="fas fa-xmark"></i></button>
+                  <button class="action-icon-btn view" onclick="viewShop(this)" title="View"><i class="fas fa-eye"></i></button>
+                </td>
+              </tr>
+              <tr data-status="active">
+                <td><div class="shop-cell"><span class="shop-emoji">💊</span><span>City Medical Store</span></div></td>
+                <td>Medical</td>
+                <td>Ravi Patel</td>
+                <td>Pune</td>
+                <td><span class="status-badge active-status">Active</span></td>
+                <td><span class="sub-badge featured-sub">Featured ⭐</span></td>
+                <td>Jan 2024</td>
+                <td class="action-cell">
+                  <button class="action-icon-btn feature" onclick="toggleFeature(this)" title="Toggle Featured"><i class="fas fa-crown"></i></button>
+                  <button class="action-icon-btn suspend" onclick="suspendShop(this)" title="Suspend"><i class="fas fa-ban"></i></button>
+                  <button class="action-icon-btn view" onclick="viewShop(this)" title="View"><i class="fas fa-eye"></i></button>
+                </td>
+              </tr>
+              <tr data-status="active">
+                <td><div class="shop-cell"><span class="shop-emoji">🪵</span><span>Ramesh Furniture</span></div></td>
+                <td>Carpenter</td>
+                <td>Ramesh Singh</td>
+                <td>Pune</td>
+                <td><span class="status-badge active-status">Active</span></td>
+                <td><span class="sub-badge featured-sub">Featured ⭐</span></td>
+                <td>Feb 2024</td>
+                <td class="action-cell">
+                  <button class="action-icon-btn feature" onclick="toggleFeature(this)" title="Toggle Featured"><i class="fas fa-crown"></i></button>
+                  <button class="action-icon-btn suspend" onclick="suspendShop(this)" title="Suspend"><i class="fas fa-ban"></i></button>
+                  <button class="action-icon-btn view" onclick="viewShop(this)" title="View"><i class="fas fa-eye"></i></button>
+                </td>
+              </tr>
+              <tr data-status="suspended">
+                <td><div class="shop-cell"><span class="shop-emoji">⚡</span><span>XYZ Electronics</span></div></td>
+                <td>Electronics</td>
+                <td>Unknown</td>
+                <td>Delhi</td>
+                <td><span class="status-badge suspended-status">Suspended</span></td>
+                <td><span class="sub-badge free-sub">Free</span></td>
+                <td>Mar 2024</td>
+                <td class="action-cell">
+                  <button class="action-icon-btn approve" onclick="approveShop(this)" title="Reactivate"><i class="fas fa-rotate-right"></i></button>
+                  <button class="action-icon-btn reject" onclick="deleteShop(this)" title="Delete"><i class="fas fa-trash"></i></button>
+                  <button class="action-icon-btn view" onclick="viewShop(this)" title="View"><i class="fas fa-eye"></i></button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- ===== USERS TAB ===== -->
+      <div class="admin-tab" id="adminTab-users" style="display:none">
+        <div class="admin-page-header">
+          <h2>Manage Users</h2>
+          <p>All registered users on the platform</p>
+        </div>
+        <div class="admin-filter-bar">
+          <div class="admin-search-wrap">
+            <i class="fas fa-search"></i>
+            <input type="text" placeholder="Search users..."/>
+          </div>
+        </div>
+        <div class="admin-table-wrap">
+          <table class="admin-table">
+            <thead>
+              <tr>
+                <th>User</th>
+                <th>Phone</th>
+                <th>City</th>
+                <th>Joined</th>
+                <th>Requirements</th>
+                <th>Status</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><div class="shop-cell"><div class="user-avatar">R</div><span>Rahul M.</span></div></td>
+                <td>+91 98765 43210</td>
+                <td>Pune</td>
+                <td>Jan 2024</td>
+                <td>5</td>
+                <td><span class="status-badge active-status">Active</span></td>
+                <td class="action-cell">
+                  <button class="action-icon-btn suspend" onclick="suspendUser(this)" title="Suspend"><i class="fas fa-ban"></i></button>
+                  <button class="action-icon-btn view" title="View"><i class="fas fa-eye"></i></button>
+                </td>
+              </tr>
+              <tr>
+                <td><div class="shop-cell"><div class="user-avatar">P</div><span>Priya S.</span></div></td>
+                <td>+91 87654 32109</td>
+                <td>Mumbai</td>
+                <td>Feb 2024</td>
+                <td>3</td>
+                <td><span class="status-badge active-status">Active</span></td>
+                <td class="action-cell">
+                  <button class="action-icon-btn suspend" onclick="suspendUser(this)" title="Suspend"><i class="fas fa-ban"></i></button>
+                  <button class="action-icon-btn view" title="View"><i class="fas fa-eye"></i></button>
+                </td>
+              </tr>
+              <tr>
+                <td><div class="shop-cell"><div class="user-avatar">A</div><span>Amit K.</span></div></td>
+                <td>+91 76543 21098</td>
+                <td>Bangalore</td>
+                <td>Mar 2024</td>
+                <td>8</td>
+                <td><span class="status-badge active-status">Active</span></td>
+                <td class="action-cell">
+                  <button class="action-icon-btn suspend" onclick="suspendUser(this)" title="Suspend"><i class="fas fa-ban"></i></button>
+                  <button class="action-icon-btn view" title="View"><i class="fas fa-eye"></i></button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- ===== REQUIREMENTS TAB ===== -->
+      <div class="admin-tab" id="adminTab-requirements" style="display:none">
+        <div class="admin-page-header">
+          <h2>All Requirements</h2>
+          <p>Requirements posted by users across the platform</p>
+        </div>
+        <div class="admin-table-wrap">
+          <table class="admin-table">
+            <thead>
+              <tr>
+                <th>Title</th>
+                <th>Category</th>
+                <th>User</th>
+                <th>City</th>
+                <th>Urgency</th>
+                <th>Radius</th>
+                <th>Posted</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Need Paracetamol 500mg</td>
+                <td>💊 Medical</td>
+                <td>Rahul M.</td>
+                <td>Pune</td>
+                <td><span class="req-urgency urgent">🔥 Today</span></td>
+                <td>10 km</td>
+                <td>30 min ago</td>
+                <td class="action-cell">
+                  <button class="action-icon-btn reject" onclick="deleteRequirement(this)" title="Delete"><i class="fas fa-trash"></i></button>
+                </td>
+              </tr>
+              <tr>
+                <td>Custom wooden study table</td>
+                <td>🪵 Carpenter</td>
+                <td>Priya S.</td>
+                <td>Mumbai</td>
+                <td><span class="req-urgency week">📅 This Week</span></td>
+                <td>20 km</td>
+                <td>2 hrs ago</td>
+                <td class="action-cell">
+                  <button class="action-icon-btn reject" onclick="deleteRequirement(this)" title="Delete"><i class="fas fa-trash"></i></button>
+                </td>
+              </tr>
+              <tr>
+                <td>Ring resizing needed</td>
+                <td>💍 Goldsmith</td>
+                <td>Amit K.</td>
+                <td>Surat</td>
+                <td><span class="req-urgency week">📅 This Week</span></td>
+                <td>15 km</td>
+                <td>5 hrs ago</td>
+                <td class="action-cell">
+                  <button class="action-icon-btn reject" onclick="deleteRequirement(this)" title="Delete"><i class="fas fa-trash"></i></button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- ===== SUBSCRIPTIONS TAB ===== -->
+      <div class="admin-tab" id="adminTab-subscriptions" style="display:none">
+        <div class="admin-page-header">
+          <h2>Subscriptions</h2>
+          <p>Manage featured shop subscriptions</p>
+        </div>
+
+        <div class="sub-stats-row">
+          <div class="sub-stat"><span class="sub-stat-val">23</span><span class="sub-stat-label">Active Featured</span></div>
+          <div class="sub-stat"><span class="sub-stat-val">₹11,477</span><span class="sub-stat-label">This Month Revenue</span></div>
+          <div class="sub-stat"><span class="sub-stat-val">5</span><span class="sub-stat-label">Expiring This Week</span></div>
+        </div>
+
+        <div class="admin-table-wrap">
+          <table class="admin-table">
+            <thead>
+              <tr>
+                <th>Shop</th>
+                <th>Plan</th>
+                <th>Amount</th>
+                <th>Start Date</th>
+                <th>Expiry</th>
+                <th>Status</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><div class="shop-cell"><span class="shop-emoji">💊</span><span>City Medical Store</span></div></td>
+                <td>Monthly</td>
+                <td>₹499</td>
+                <td>1 Feb 2025</td>
+                <td>1 Mar 2025</td>
+                <td><span class="status-badge active-status">Active</span></td>
+                <td class="action-cell">
+                  <button class="action-icon-btn reject" onclick="revokeSubscription(this)" title="Revoke"><i class="fas fa-ban"></i></button>
+                </td>
+              </tr>
+              <tr>
+                <td><div class="shop-cell"><span class="shop-emoji">🪵</span><span>Ramesh Furniture</span></div></td>
+                <td>Quarterly</td>
+                <td>₹1,197</td>
+                <td>1 Jan 2025</td>
+                <td>1 Apr 2025</td>
+                <td><span class="status-badge active-status">Active</span></td>
+                <td class="action-cell">
+                  <button class="action-icon-btn reject" onclick="revokeSubscription(this)" title="Revoke"><i class="fas fa-ban"></i></button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- MANUAL SUBSCRIPTION -->
+        <div class="manual-sub-card">
+          <h3>Manually Add Subscription</h3>
+          <p>For shops that paid via UPI/cash directly to you</p>
+         <div class="manual-sub-form">
+  <input type="text" class="form-input" placeholder="Shop name"/>
+  <input type="tel" class="form-input" placeholder="Owner phone number" maxlength="10"/>
+  <select class="form-input">
+              <option>Monthly — ₹499</option>
+              <option>Quarterly — ₹1,197</option>
+            </select>
+            <input type="date" class="form-input"/>
+            <button class="manual-sub-btn" onclick="addManualSub()">
+              <i class="fas fa-plus"></i> Add Subscription
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- ===== REVIEWS TAB ===== -->
+      <div class="admin-tab" id="adminTab-reviews" style="display:none">
+        <div class="admin-page-header">
+          <h2>Manage Reviews</h2>
+          <p>Remove fake or abusive reviews</p>
+        </div>
+        <div class="admin-table-wrap">
+          <table class="admin-table">
+            <thead>
+              <tr>
+                <th>Shop</th>
+                <th>Reviewer</th>
+                <th>Rating</th>
+                <th>Review</th>
+                <th>Date</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>City Medical Store</td>
+                <td>Rahul M.</td>
+                <td>⭐⭐⭐⭐⭐</td>
+                <td>Very helpful staff. Got my medicines quickly.</td>
+                <td>2 days ago</td>
+                <td class="action-cell">
+                  <button class="action-icon-btn reject" onclick="deleteReview(this)" title="Delete Review"><i class="fas fa-trash"></i></button>
+                </td>
+              </tr>
+              <tr>
+                <td>XYZ Electronics</td>
+                <td>Anonymous</td>
+                <td>⭐</td>
+                <td>FAKE SHOP DO NOT VISIT!!!</td>
+                <td>1 week ago</td>
+                <td class="action-cell">
+                  <button class="action-icon-btn reject" onclick="deleteReview(this)" title="Delete Review"><i class="fas fa-trash"></i></button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- ===== REPORTS TAB ===== -->
+      <div class="admin-tab" id="adminTab-reports" style="display:none">
+        <div class="admin-page-header">
+          <h2>Reports & Complaints</h2>
+          <p>User reported shops and issues</p>
+        </div>
+        <div class="reports-list">
+          <div class="report-card urgent-report">
+            <div class="report-header">
+              <span class="report-type">🚨 Shop Report</span>
+              <span class="report-time">2 hours ago</span>
+              <span class="activity-badge danger-badge">New</span>
+            </div>
+            <h4>XYZ Electronics — Fake shop, took money and disappeared</h4>
+            <p>Reported by: Sunita R. (3 others also reported this shop)</p>
+            <div class="report-actions">
+              <button class="report-action-btn suspend-btn" onclick="suspendFromReport(this)">
+                <i class="fas fa-ban"></i> Suspend Shop
+              </button>
+              <button class="report-action-btn dismiss-btn" onclick="dismissReport(this)">
+                Dismiss
+              </button>
+            </div>
+          </div>
+
+          <div class="report-card">
+            <div class="report-header">
+              <span class="report-type">⚠️ Review Report</span>
+              <span class="report-time">1 day ago</span>
+            </div>
+            <h4>Fake review on City Medical Store</h4>
+            <p>Reported by: Shop Owner — review appears to be from a competitor</p>
+            <div class="report-actions">
+              <button class="report-action-btn suspend-btn" onclick="deleteReviewFromReport(this)">
+                <i class="fas fa-trash"></i> Delete Review
+              </button>
+              <button class="report-action-btn dismiss-btn" onclick="dismissReport(this)">
+                Dismiss
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ===== CATEGORIES TAB ===== -->
+      <div class="admin-tab" id="adminTab-categories" style="display:none">
+        <div class="admin-page-header">
+          <h2>Manage Categories</h2>
+          <p>Add, edit or remove shop categories</p>
+        </div>
+        <div class="categories-manage-grid">
+          <div class="cat-manage-card">
+            <span class="cat-emoji">💊</span>
+            <span class="cat-name">Medical</span>
+            <span class="cat-count">28 shops</span>
+            <button class="cat-edit-btn"><i class="fas fa-pen"></i></button>
+          </div>
+          <div class="cat-manage-card">
+            <span class="cat-emoji">🍽️</span>
+            <span class="cat-name">Food & Restaurant</span>
+            <span class="cat-count">34 shops</span>
+            <button class="cat-edit-btn"><i class="fas fa-pen"></i></button>
+          </div>
+          <div class="cat-manage-card">
+            <span class="cat-emoji">🪵</span>
+            <span class="cat-name">Carpenter</span>
+            <span class="cat-count">12 shops</span>
+            <button class="cat-edit-btn"><i class="fas fa-pen"></i></button>
+          </div>
+          <div class="cat-manage-card">
+            <span class="cat-emoji">💍</span>
+            <span class="cat-name">Goldsmith</span>
+            <span class="cat-count">8 shops</span>
+            <button class="cat-edit-btn"><i class="fas fa-pen"></i></button>
+          </div>
+          <div class="cat-manage-card">
+            <span class="cat-emoji">🧵</span>
+            <span class="cat-name">Tailor & Boutique</span>
+            <span class="cat-count">15 shops</span>
+            <button class="cat-edit-btn"><i class="fas fa-pen"></i></button>
+          </div>
+          <div class="cat-manage-card add-cat-card" onclick="addCategory()">
+            <span class="cat-emoji">➕</span>
+            <span class="cat-name">Add Category</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- SIDEBAR OVERLAY -->
+  <div class="admin-overlay" id="adminOverlay" onclick="toggleAdminSidebar()"></div>
+
+  <script src="../js/admin.js"></script>
+</body>
+</html>
