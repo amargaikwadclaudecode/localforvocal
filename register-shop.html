@@ -1,0 +1,562 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>List Your Shop — Local for Vocal</title>
+  <link rel="stylesheet" href="css/style.css"/>
+  <link rel="stylesheet" href="css/register-shop.css"/>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+</head>
+<body class="register-body">
+
+  <!-- NAVBAR -->
+  <nav class="navbar">
+    <div class="nav-brand">
+      <a href="index.html" style="display:flex;align-items:center;gap:8px;text-decoration:none;color:inherit">
+        <span class="brand-icon">🌿</span>
+        <span class="brand-name">Local<span class="accent">4</span>Vocal</span>
+      </a>
+    </div>
+    <div class="nav-links">
+      <a href="login.html" class="nav-btn-outline">Sign In</a>
+    </div>
+  </nav>
+
+  <div class="register-wrapper">
+
+    <!-- LEFT PROGRESS PANEL -->
+    <aside class="progress-panel">
+      <div class="progress-header">
+        <h3>Register Your Shop</h3>
+        <p>Complete all 4 steps to go live</p>
+      </div>
+
+      <div class="steps-progress">
+        <div class="step-item active" id="step-indicator-1">
+          <div class="step-circle">
+            <span class="step-num">1</span>
+            <i class="fas fa-check step-check"></i>
+          </div>
+          <div class="step-label">
+            <span class="step-title">Basic Info</span>
+            <span class="step-desc">Shop name, category, contact</span>
+          </div>
+        </div>
+        <div class="step-connector"></div>
+
+        <div class="step-item" id="step-indicator-2">
+          <div class="step-circle">
+            <span class="step-num">2</span>
+            <i class="fas fa-check step-check"></i>
+          </div>
+          <div class="step-label">
+            <span class="step-title">Location</span>
+            <span class="step-desc">Address and area details</span>
+          </div>
+        </div>
+        <div class="step-connector"></div>
+
+        <div class="step-item" id="step-indicator-3">
+          <div class="step-circle">
+            <span class="step-num">3</span>
+            <i class="fas fa-check step-check"></i>
+          </div>
+          <div class="step-label">
+            <span class="step-title">Photos</span>
+            <span class="step-desc">Shop photos and gallery</span>
+          </div>
+        </div>
+        <div class="step-connector"></div>
+
+        <div class="step-item" id="step-indicator-4">
+          <div class="step-circle">
+            <span class="step-num">4</span>
+            <i class="fas fa-check step-check"></i>
+          </div>
+          <div class="step-label">
+            <span class="step-title">Products & Services</span>
+            <span class="step-desc">What you offer</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="progress-benefits">
+        <h4>Why List on Local4Vocal?</h4>
+        <div class="benefit-item"><i class="fas fa-users"></i> Get discovered by local customers</div>
+        <div class="benefit-item"><i class="fas fa-message"></i> Receive direct messages & inquiries</div>
+        <div class="benefit-item"><i class="fas fa-star"></i> Build your online reputation</div>
+        <div class="benefit-item"><i class="fas fa-indian-rupee-sign"></i> Basic listing is 100% free</div>
+      </div>
+    </aside>
+
+    <!-- MAIN FORM AREA -->
+    <main class="register-main">
+
+      <!-- PROGRESS BAR (mobile) -->
+      <div class="mobile-progress">
+        <div class="mobile-progress-bar">
+          <div class="mobile-progress-fill" id="mobileProgressFill" style="width:25%"></div>
+        </div>
+        <span class="mobile-progress-text" id="mobileProgressText">Step 1 of 4</span>
+      </div>
+
+      <!-- ===== STEP 1: BASIC INFO ===== -->
+      <div class="form-step active" id="formStep1">
+        <div class="step-header">
+          <div class="step-emoji">🏪</div>
+          <h2>Basic Information</h2>
+          <p>Tell us about your shop</p>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Shop Name <span class="required">*</span></label>
+          <div class="input-icon-wrap">
+            <i class="fas fa-store"></i>
+            <input type="text" id="shopName" class="form-input icon-input" placeholder="e.g. Ramesh Furniture Works"/>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Category <span class="required">*</span></label>
+          <div class="input-icon-wrap">
+            <i class="fas fa-grip"></i>
+            <select id="shopCategory" class="form-input icon-input" onchange="updateSubCategory()">
+              <option value="">Select your business category</option>
+              <option value="medical">💊 Medical & Pharmacy</option>
+              <option value="Cloths">Cloths and wears</option>
+              <option value="food">🍽️ Food & Restaurant</option>
+              <option value="carpenter">🪵 Carpenter & Furniture</option>
+              <option value="goldsmith">💍 Goldsmith & Jewellery</option>
+              <option value="tailor">🧵 Tailor & Boutique</option>
+              <option value="electronics">⚡ Electronics & Repair</option>
+              <option value="salon">✂️ Salon & Beauty</option>
+              <option value="grocery">🛒 Grocery & Kirana</option>
+              <option value="plumber">🔧 Plumber & Electrician</option>
+              <option value="auto">🚗 Auto & Vehicle Repair</option>
+              <option value="education">📚 Education & Tuition</option>
+              <option value="gym">💪 Gym & Fitness</option>
+              <option value="hardware">🔨 Hardware & Paint</option>
+              <option value="stationery">📝 Stationery & Printing</option>
+              <option value="other">🔍 Other</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-group" id="subCategoryGroup" style="display:none">
+          <label class="form-label">Sub Category</label>
+          <div class="input-icon-wrap">
+            <i class="fas fa-tag"></i>
+            <select id="shopSubCategory" class="form-input icon-input">
+              <option value="">Select sub category</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label">Owner Name <span class="required">*</span></label>
+            <div class="input-icon-wrap">
+              <i class="fas fa-user"></i>
+              <input type="text" id="ownerName" class="form-input icon-input" placeholder="Your full name"/>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Phone Number <span class="required">*</span></label>
+            <div class="phone-input-wrap">
+              <span class="country-code">🇮🇳 +91</span>
+              <input type="tel" id="shopPhone" class="form-input phone-input" placeholder="10 digit number" maxlength="10" oninput="this.value=this.value.replace(/\D/g,'')"/>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">WhatsApp Number</label>
+          <div class="input-icon-wrap">
+            <i class="fab fa-whatsapp" style="color:#25d366"></i>
+            <input type="tel" id="shopWhatsapp" class="form-input icon-input" placeholder="WhatsApp number (if different)"/>
+          </div>
+          <span class="form-hint">Leave empty if same as phone number</span>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Shop Description</label>
+          <textarea id="shopDescription" class="form-textarea" placeholder="Describe your shop, what you offer, years of experience, specialities..." rows="4"></textarea>
+          <span class="form-hint"><span id="descCount">0</span>/300 characters</span>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label">Year Established</label>
+            <div class="input-icon-wrap">
+              <i class="fas fa-calendar"></i>
+              <input type="number" id="shopYear" class="form-input icon-input" placeholder="e.g. 2010" min="1900" max="2025"/>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="form-label">GST Number (Optional)</label>
+            <div class="input-icon-wrap">
+              <i class="fas fa-file-invoice"></i>
+              <input type="text" id="shopGST" class="form-input icon-input" placeholder="GST number if available"/>
+            </div>
+          </div>
+        </div>
+
+        <div class="step-footer">
+          <div></div>
+          <button class="next-btn" onclick="goToStep(2)">
+            Next: Location <i class="fas fa-arrow-right"></i>
+          </button>
+        </div>
+      </div>
+
+      <!-- ===== STEP 2: LOCATION ===== -->
+      <div class="form-step" id="formStep2" style="display:none">
+        <div class="step-header">
+          <div class="step-emoji">📍</div>
+          <h2>Shop Location</h2>
+          <p>Help customers find you easily</p>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Full Address <span class="required">*</span></label>
+          <div class="input-icon-wrap">
+            <i class="fas fa-location-dot"></i>
+            <input type="text" id="shopAddress" class="form-input icon-input" placeholder="Shop number, building, street name"/>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label">Area / Locality <span class="required">*</span></label>
+            <div class="input-icon-wrap">
+              <i class="fas fa-map"></i>
+              <input type="text" id="shopArea" class="form-input icon-input" placeholder="e.g. Koramangala"/>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="form-label">City <span class="required">*</span></label>
+            <div class="input-icon-wrap">
+              <i class="fas fa-city"></i>
+              <input type="text" id="shopCity" class="form-input icon-input" placeholder="e.g. Bangalore"/>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label">State <span class="required">*</span></label>
+            <div class="input-icon-wrap">
+              <i class="fas fa-map-location"></i>
+              <select id="shopState" class="form-input icon-input">
+                <option value="">Select State</option>
+                <option>Andhra Pradesh</option>
+                <option>Arunachal Pradesh</option>
+                <option>Assam</option>
+                <option>Bihar</option>
+                <option>Chhattisgarh</option>
+                <option>Goa</option>
+                <option>Gujarat</option>
+                <option>Haryana</option>
+                <option>Himachal Pradesh</option>
+                <option>Jharkhand</option>
+                <option>Karnataka</option>
+                <option>Kerala</option>
+                <option>Madhya Pradesh</option>
+                <option>Maharashtra</option>
+                <option>Manipur</option>
+                <option>Meghalaya</option>
+                <option>Mizoram</option>
+                <option>Nagaland</option>
+                <option>Odisha</option>
+                <option>Punjab</option>
+                <option>Rajasthan</option>
+                <option>Sikkim</option>
+                <option>Tamil Nadu</option>
+                <option>Telangana</option>
+                <option>Tripura</option>
+                <option>Uttar Pradesh</option>
+                <option>Uttarakhand</option>
+                <option>West Bengal</option>
+                <option>Delhi</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="form-label">PIN Code <span class="required">*</span></label>
+            <div class="input-icon-wrap">
+              <i class="fas fa-hashtag"></i>
+              <input type="text" id="shopPIN" class="form-input icon-input" placeholder="6 digit PIN" maxlength="6" oninput="this.value=this.value.replace(/\D/g,'')"/>
+            </div>
+          </div>
+        </div>
+
+        <!-- DETECT LOCATION -->
+        <div class="detect-location-box">
+          <div class="detect-info">
+            <i class="fas fa-location-crosshairs"></i>
+            <div>
+              <h4>Auto-detect Location</h4>
+              <p>We'll pin your shop on the map automatically</p>
+            </div>
+          </div>
+          <button class="detect-btn" onclick="detectShopLocation()">
+            <i class="fas fa-crosshairs"></i> Detect
+          </button>
+        </div>
+
+        <div class="location-detected" id="locationDetected" style="display:none">
+          <i class="fas fa-check-circle"></i>
+          <span>Location detected! Your shop will be pinned accurately on the map.</span>
+        </div>
+
+        <!-- TIMINGS -->
+        <div class="form-group">
+          <label class="form-label">Opening Hours <span class="required">*</span></label>
+          <div class="timings-grid">
+            <div class="timing-row" id="timing-mon">
+              <label class="day-label">
+                <input type="checkbox" checked onchange="toggleDay('mon', this)"/> Mon
+              </label>
+              <input type="time" class="time-input" id="open-mon" value="09:00"/>
+              <span class="time-sep">to</span>
+              <input type="time" class="time-input" id="close-mon" value="21:00"/>
+            </div>
+            <div class="timing-row">
+              <label class="day-label">
+                <input type="checkbox" checked onchange="toggleDay('tue', this)"/> Tue
+              </label>
+              <input type="time" class="time-input" id="open-tue" value="09:00"/>
+              <span class="time-sep">to</span>
+              <input type="time" class="time-input" id="close-tue" value="21:00"/>
+            </div>
+            <div class="timing-row">
+              <label class="day-label">
+                <input type="checkbox" checked onchange="toggleDay('wed', this)"/> Wed
+              </label>
+              <input type="time" class="time-input" id="open-wed" value="09:00"/>
+              <span class="time-sep">to</span>
+              <input type="time" class="time-input" id="close-wed" value="21:00"/>
+            </div>
+            <div class="timing-row">
+              <label class="day-label">
+                <input type="checkbox" checked onchange="toggleDay('thu', this)"/> Thu
+              </label>
+              <input type="time" class="time-input" id="open-thu" value="09:00"/>
+              <span class="time-sep">to</span>
+              <input type="time" class="time-input" id="close-thu" value="21:00"/>
+            </div>
+            <div class="timing-row">
+              <label class="day-label">
+                <input type="checkbox" checked onchange="toggleDay('fri', this)"/> Fri
+              </label>
+              <input type="time" class="time-input" id="open-fri" value="09:00"/>
+              <span class="time-sep">to</span>
+              <input type="time" class="time-input" id="close-fri" value="21:00"/>
+            </div>
+            <div class="timing-row">
+              <label class="day-label">
+                <input type="checkbox" checked onchange="toggleDay('sat', this)"/> Sat
+              </label>
+              <input type="time" class="time-input" id="open-sat" value="09:00"/>
+              <span class="time-sep">to</span>
+              <input type="time" class="time-input" id="close-sat" value="21:00"/>
+            </div>
+            <div class="timing-row">
+              <label class="day-label">
+                <input type="checkbox" onchange="toggleDay('sun', this)"/> Sun
+              </label>
+              <input type="time" class="time-input" id="open-sun" value="10:00" disabled/>
+              <span class="time-sep">to</span>
+              <input type="time" class="time-input" id="close-sun" value="18:00" disabled/>
+            </div>
+          </div>
+        </div>
+
+        <div class="step-footer">
+          <button class="back-btn" onclick="goToStep(1)">
+            <i class="fas fa-arrow-left"></i> Back
+          </button>
+          <button class="next-btn" onclick="goToStep(3)">
+            Next: Photos <i class="fas fa-arrow-right"></i>
+          </button>
+        </div>
+      </div>
+
+      <!-- ===== STEP 3: PHOTOS ===== -->
+      <div class="form-step" id="formStep3" style="display:none">
+        <div class="step-header">
+          <div class="step-emoji">📸</div>
+          <h2>Shop Photos</h2>
+          <p>Good photos attract more customers</p>
+        </div>
+
+        <!-- COVER PHOTO -->
+        <div class="form-group">
+          <label class="form-label">Cover Photo <span class="required">*</span></label>
+          <div class="upload-box" id="coverUploadBox" onclick="document.getElementById('coverInput').click()">
+            <div class="upload-placeholder" id="coverPlaceholder">
+              <i class="fas fa-cloud-upload-alt"></i>
+              <h4>Upload Cover Photo</h4>
+              <p>This is the main photo shown on your shop card</p>
+              <span class="upload-hint">JPG, PNG • Max 5MB • Recommended 1200×400px</span>
+            </div>
+            <img id="coverPreview" class="upload-preview" style="display:none"/>
+            <input type="file" id="coverInput" accept="image/*" style="display:none" onchange="previewCover(this)"/>
+          </div>
+        </div>
+
+        <!-- LOGO -->
+        <div class="form-group">
+          <label class="form-label">Shop Logo / Profile Photo</label>
+          <div class="logo-upload-row">
+            <div class="logo-preview-circle" id="logoPreviewCircle">
+              <span id="logoEmoji">🏪</span>
+              <img id="logoPreview" style="display:none; width:100%; height:100%; object-fit:cover; border-radius:50%;"/>
+            </div>
+            <div class="logo-upload-info">
+              <button class="upload-logo-btn" onclick="document.getElementById('logoInput').click()">
+                <i class="fas fa-upload"></i> Upload Logo
+              </button>
+              <p>Square image recommended • Max 2MB</p>
+              <input type="file" id="logoInput" accept="image/*" style="display:none" onchange="previewLogo(this)"/>
+            </div>
+          </div>
+        </div>
+
+        <!-- GALLERY -->
+        <div class="form-group">
+          <label class="form-label">Gallery Photos <span class="form-hint-inline">(Up to 10 photos)</span></label>
+          <div class="gallery-upload-grid" id="galleryGrid">
+            <div class="gallery-upload-item add-photo" onclick="document.getElementById('galleryInput').click()">
+              <i class="fas fa-plus"></i>
+              <span>Add Photo</span>
+            </div>
+          </div>
+          <input type="file" id="galleryInput" accept="image/*" multiple style="display:none" onchange="previewGallery(this)"/>
+          <span class="form-hint">Show your work, products, shop interior to attract customers</span>
+        </div>
+
+        <div class="step-footer">
+          <button class="back-btn" onclick="goToStep(2)">
+            <i class="fas fa-arrow-left"></i> Back
+          </button>
+          <button class="next-btn" onclick="goToStep(4)">
+            Next: Products & Services <i class="fas fa-arrow-right"></i>
+          </button>
+        </div>
+      </div>
+
+      <!-- ===== STEP 4: PRODUCTS & SERVICES ===== -->
+      <div class="form-step" id="formStep4" style="display:none">
+        <div class="step-header">
+          <div class="step-emoji">🏷️</div>
+          <h2>Products & Services</h2>
+          <p>Help customers know what you offer</p>
+        </div>
+
+        <!-- TAG INPUT -->
+        <div class="form-group">
+          <label class="form-label">Add Products / Services <span class="required">*</span></label>
+          <p class="form-hint" style="margin-bottom:10px">Type a product or service and press Enter or click Add. Customers will search by these tags.</p>
+          <div class="tag-input-wrap">
+            <input type="text" id="tagInput" class="form-input" placeholder="e.g. Paracetamol, Custom Table, Ring Resizing..." onkeypress="tagEnter(event)"/>
+            <button class="add-tag-btn" onclick="addTag()"><i class="fas fa-plus"></i> Add</button>
+          </div>
+          <div class="tags-display" id="tagsDisplay"></div>
+        </div>
+
+        <!-- SUGGESTED TAGS -->
+        <div class="form-group">
+          <label class="form-label">Quick Add — Suggested Tags</label>
+          <div class="suggested-tags" id="suggestedTags"></div>
+        </div>
+
+        <!-- DELIVERY -->
+        <div class="form-group">
+          <label class="form-label">Do you offer Home Delivery?</label>
+          <div class="radio-group">
+            <label class="radio-item">
+              <input type="radio" name="delivery" value="yes"/> Yes, I deliver
+            </label>
+            <label class="radio-item">
+              <input type="radio" name="delivery" value="no" checked/> No delivery
+            </label>
+            <label class="radio-item">
+              <input type="radio" name="delivery" value="depends"/> Depends on order
+            </label>
+          </div>
+        </div>
+
+        <!-- PAYMENT -->
+        <div class="form-group">
+          <label class="form-label">Payment Methods Accepted</label>
+          <div class="checkbox-group">
+            <label class="checkbox-item"><input type="checkbox" checked/> Cash</label>
+            <label class="checkbox-item"><input type="checkbox" checked/> UPI (GPay, PhonePe)</label>
+            <label class="checkbox-item"><input type="checkbox"/> Debit / Credit Card</label>
+            <label class="checkbox-item"><input type="checkbox"/> Net Banking</label>
+            <label class="checkbox-item"><input type="checkbox"/> EMI Available</label>
+          </div>
+        </div>
+
+        <!-- SPECIAL OFFER -->
+        <div class="form-group">
+          <label class="form-label">Launch Offer (Optional)</label>
+          <div class="input-icon-wrap">
+            <i class="fas fa-tag"></i>
+            <input type="text" id="launchOffer" class="form-input icon-input" placeholder="e.g. 10% off for first 50 customers!"/>
+          </div>
+          <span class="form-hint">This will show as a special badge on your shop profile</span>
+        </div>
+
+        <!-- TERMS -->
+        <div class="form-check" style="margin-top:24px">
+          <input type="checkbox" id="shopTerms"/>
+          <label for="shopTerms">I confirm that all information provided is accurate and I agree to the <a href="#">Terms of Service</a>. I understand my shop will be reviewed before going live.</label>
+        </div>
+
+        <div class="step-footer">
+          <button class="back-btn" onclick="goToStep(3)">
+            <i class="fas fa-arrow-left"></i> Back
+          </button>
+          <button class="submit-btn" onclick="submitShop()">
+            <i class="fas fa-rocket"></i> Submit for Review
+          </button>
+        </div>
+      </div>
+
+      <!-- ===== SUCCESS SCREEN ===== -->
+      <div class="form-step" id="formStepSuccess" style="display:none">
+        <div class="success-screen">
+          <div class="success-icon">🎉</div>
+          <h2>Shop Submitted Successfully!</h2>
+          <p>Your shop is under review. We'll approve it within <strong>24 hours</strong> and notify you on your phone number.</p>
+          <div class="success-details">
+            <div class="success-detail-item">
+              <i class="fas fa-clock"></i>
+              <span>Review time: Up to 24 hours</span>
+            </div>
+            <div class="success-detail-item">
+              <i class="fas fa-mobile"></i>
+              <span>You'll receive an SMS confirmation</span>
+            </div>
+            <div class="success-detail-item">
+              <i class="fas fa-star"></i>
+              <span>Consider upgrading to Featured for more visibility</span>
+            </div>
+          </div>
+          <div class="success-actions">
+            <a href="index.html" class="success-btn-outline">Go to Home</a>
+            <a href="#" class="success-btn-fill">View Subscription Plans</a>
+          </div>
+        </div>
+      </div>
+
+    </main>
+  </div>
+
+  <script src="js/register-shop.js"></script>
+</body>
+</html>

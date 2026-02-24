@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Post a Requirement — Local for Vocal</title>
+  <link rel="stylesheet" href="css/style.css"/>
+  <link rel="stylesheet" href="css/post-requirement.css"/>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+</head>
+<body>
+
+  <!-- NAVBAR -->
+  <nav class="navbar">
+    <div class="nav-brand">
+      <a href="index.html" style="display:flex;align-items:center;gap:8px;text-decoration:none;color:inherit">
+        <span class="brand-icon">🌿</span>
+        <span class="brand-name">Local<span class="accent">4</span>Vocal</span>
+      </a>
+    </div>
+    <div class="nav-links">
+      <a href="explore.html">Explore</a>
+      <a href="login.html" class="nav-btn-fill">Sign In</a>
+    </div>
+    <div class="hamburger" onclick="toggleMenu()">
+      <span></span><span></span><span></span>
+    </div>
+  </nav>
+
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="index.html">Home</a>
+    <a href="explore.html">Explore</a>
+    <a href="login.html">Sign In</a>
+  </div>
+
+  <div class="req-page-layout">
+
+    <!-- LEFT: FORM -->
+    <main class="req-form-area">
+
+      <div class="req-page-header">
+        <div class="req-header-icon">📋</div>
+        <h1>Post a Requirement</h1>
+        <p>Tell us what you need — local shops near you will respond with availability and quotes.</p>
+      </div>
+
+      <!-- FORM CARD -->
+      <div class="req-form-card" id="reqFormCard">
+
+        <!-- CATEGORY -->
+        <div class="form-group">
+          <label class="form-label">What do you need? <span class="required">*</span></label>
+          <div class="category-picker">
+            <div class="cat-pick active" data-cat="medical" onclick="pickCategory(this)">💊 Medical</div>
+            <div class="cat-pick" data-cat="carpenter" onclick="pickCategory(this)">🪵 Carpenter</div>
+            <div class="cat-pick" data-cat="goldsmith" onclick="pickCategory(this)">💍 Goldsmith</div>
+            <div class="cat-pick" data-cat="tailor" onclick="pickCategory(this)">🧵 Tailor</div>
+            <div class="cat-pick" data-cat="electronics" onclick="pickCategory(this)">⚡ Electronics</div>
+            <div class="cat-pick" data-cat="plumber" onclick="pickCategory(this)">🔧 Plumber</div>
+            <div class="cat-pick" data-cat="food" onclick="pickCategory(this)">🍽️ Food</div>
+            <div class="cat-pick" data-cat="salon" onclick="pickCategory(this)">✂️ Salon</div>
+            <div class="cat-pick" data-cat="grocery" onclick="pickCategory(this)">🛒 Grocery</div>
+            <div class="cat-pick" data-cat="auto" onclick="pickCategory(this)">🚗 Auto</div>
+            <div class="cat-pick" data-cat="education" onclick="pickCategory(this)">📚 Education</div>
+            <div class="cat-pick" data-cat="other" onclick="pickCategory(this)">🔍 Other</div>
+          </div>
+        </div>
+
+        <!-- TITLE -->
+        <div class="form-group">
+          <label class="form-label">Requirement Title <span class="required">*</span></label>
+          <div class="input-icon-wrap">
+            <i class="fas fa-pencil"></i>
+            <input type="text" id="reqTitle" class="form-input icon-input" placeholder="e.g. Need Paracetamol 500mg, Custom wooden table, Ring resizing"/>
+          </div>
+        </div>
+
+        <!-- DESCRIPTION -->
+        <div class="form-group">
+          <label class="form-label">Describe Your Requirement <span class="required">*</span></label>
+          <textarea id="reqDescription" class="form-textarea" rows="4" placeholder="Provide more details — quantity, size, specifications, any specific brand, your budget range, anything that helps shops understand what you need..."></textarea>
+          <span class="form-hint"><span id="reqDescCount">0</span>/500 characters</span>
+        </div>
+
+        <!-- PHOTO -->
+        <div class="form-group">
+          <label class="form-label">Add a Photo <span class="form-hint-inline">(Optional but helps a lot)</span></label>
+          <div class="photo-upload-row">
+            <div class="req-photo-box" id="reqPhotoBox" onclick="document.getElementById('reqPhotoInput').click()">
+              <i class="fas fa-camera"></i>
+              <span>Add Photo</span>
+              <input type="file" id="reqPhotoInput" accept="image/*" style="display:none" onchange="previewReqPhoto(this)"/>
+            </div>
+            <div class="req-photo-hint">
+              <p>A photo helps shops understand exactly what you need.</p>
+              <p>Example: Photo of the item to repair, design reference, medicine strip etc.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- BUDGET -->
+        <div class="form-group">
+          <label class="form-label">Budget Range <span class="form-hint-inline">(Optional)</span></label>
+          <div class="budget-row">
+            <div class="input-icon-wrap" style="flex:1">
+              <i class="fas fa-indian-rupee-sign"></i>
+              <input type="number" id="budgetMin" class="form-input icon-input" placeholder="Min"/>
+            </div>
+            <span class="budget-sep">to</span>
+            <div class="input-icon-wrap" style="flex:1">
+              <i class="fas fa-indian-rupee-sign"></i>
+              <input type="number" id="budgetMax" class="form-input icon-input" placeholder="Max"/>
+            </div>
+          </div>
+        </div>
+
+        <!-- URGENCY -->
+        <div class="form-group">
+          <label class="form-label">When do you need it? <span class="required">*</span></label>
+          <div class="urgency-options">
+            <div class="urgency-card active" data-urgency="today" onclick="pickUrgency(this)">
+              <span class="urgency-icon">🔥</span>
+              <span class="urgency-title">Today</span>
+              <span class="urgency-desc">Need it urgently</span>
+            </div>
+            <div class="urgency-card" data-urgency="thisweek" onclick="pickUrgency(this)">
+              <span class="urgency-icon">📅</span>
+              <span class="urgency-title">This Week</span>
+              <span class="urgency-desc">Within 7 days</span>
+            </div>
+            <div class="urgency-card" data-urgency="thismonth" onclick="pickUrgency(this)">
+              <span class="urgency-icon">🗓️</span>
+              <span class="urgency-title">This Month</span>
+              <span class="urgency-desc">No rush</span>
+            </div>
+            <div class="urgency-card" data-urgency="flexible" onclick="pickUrgency(this)">
+              <span class="urgency-icon">🤷</span>
+              <span class="urgency-title">Flexible</span>
+              <span class="urgency-desc">Just exploring</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- RADIUS -->
+        <div class="form-group">
+          <label class="form-label">Notify shops within <span id="reqRadiusVal">10</span> km</label>
+          <input type="range" min="1" max="50" value="10" class="radius-slider" id="reqRadius" oninput="updateReqRadius(this.value)"/>
+          <div class="radius-quick">
+            <button class="radius-quick-btn" onclick="setReqRadius(5)">5km</button>
+            <button class="radius-quick-btn active" onclick="setReqRadius(10)">10km</button>
+            <button class="radius-quick-btn" onclick="setReqRadius(20)">20km</button>
+            <button class="radius-quick-btn" onclick="setReqRadius(30)">30km</button>
+          </div>
+        </div>
+
+        <!-- CONTACT -->
+        <div class="form-group">
+          <label class="form-label">Your Phone Number <span class="required">*</span></label>
+          <div class="phone-input-wrap">
+            <span class="country-code">🇮🇳 +91</span>
+            <input type="tel" id="reqPhone" class="form-input phone-input" placeholder="Shops will contact you on this number" maxlength="10" oninput="this.value=this.value.replace(/\D/g,'')"/>
+          </div>
+          <span class="form-hint">Your number is shared only with shops that respond to your requirement</span>
+        </div>
+
+        <!-- ANONYMOUS -->
+        <div class="form-check">
+          <input type="checkbox" id="anonymousCheck"/>
+          <label for="anonymousCheck">Post anonymously — hide my name from shops (phone number still shared when shop responds)</label>
+        </div>
+
+        <!-- SUBMIT -->
+        <button class="req-submit-btn" onclick="submitRequirement()">
+          <i class="fas fa-paper-plane"></i> Post Requirement
+        </button>
+
+      </div>
+
+      <!-- SUCCESS STATE -->
+      <div class="req-success" id="reqSuccess" style="display:none">
+        <div class="req-success-icon">🎉</div>
+        <h2>Requirement Posted!</h2>
+        <p>Your requirement has been sent to <strong id="notifiedCount">8</strong> shops within <strong id="notifiedRadius">10</strong> km.</p>
+        <p class="req-success-sub">Shops will contact you directly on your phone. You'll also see responses here.</p>
+
+        <div class="req-responses-preview">
+          <div class="resp-header">
+            <h3>Responses <span class="resp-count" id="respCount">0</span></h3>
+            <span class="resp-waiting">Waiting for responses...</span>
+          </div>
+          <div class="resp-empty">
+            <i class="fas fa-clock"></i>
+            <p>Shops are being notified. Responses will appear here shortly.</p>
+          </div>
+        </div>
+
+        <div class="req-success-actions">
+          <a href="index.html" class="req-back-btn">
+            <i class="fas fa-home"></i> Back to Home
+          </a>
+          <button class="req-new-btn" onclick="postAnother()">
+            <i class="fas fa-plus"></i> Post Another
+          </button>
+        </div>
+      </div>
+
+    </main>
+
+    <!-- RIGHT: HOW IT WORKS -->
+    <aside class="req-sidebar">
+
+      <div class="req-how-card">
+        <h3>How It Works</h3>
+        <div class="req-how-step">
+          <div class="req-how-num">1</div>
+          <div>
+            <h4>You Post</h4>
+            <p>Describe what you need, set your radius and urgency.</p>
+          </div>
+        </div>
+        <div class="req-how-step">
+          <div class="req-how-num">2</div>
+          <div>
+            <h4>Shops Get Notified</h4>
+            <p>All matching shops within your radius receive your requirement instantly.</p>
+          </div>
+        </div>
+        <div class="req-how-step">
+          <div class="req-how-num">3</div>
+          <div>
+            <h4>They Respond</h4>
+            <p>Interested shops reply with availability, pricing and delivery options.</p>
+          </div>
+        </div>
+        <div class="req-how-step">
+          <div class="req-how-num">4</div>
+          <div>
+            <h4>You Choose</h4>
+            <p>Compare responses and pick the best shop for your needs.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="req-tips-card">
+        <h3>💡 Tips for Better Responses</h3>
+        <ul class="req-tips-list">
+          <li>Be specific — mention brand, size, quantity</li>
+          <li>Add a photo if possible</li>
+          <li>Set a realistic budget range</li>
+          <li>Choose the right urgency</li>
+          <li>Keep your phone reachable</li>
+        </ul>
+      </div>
+
+      <div class="req-sample-card">
+        <h3>📝 Sample Requirements</h3>
+        <div class="sample-req" onclick="fillSample('Need Paracetamol 500mg strips', 'I need 5 strips of Paracetamol 500mg, any brand. Need it today.')">
+          <span class="sample-cat">💊 Medical</span>
+          <p>Need Paracetamol 500mg strips</p>
+        </div>
+        <div class="sample-req" onclick="fillSample('Custom wooden study table', 'Need a 4x2 feet wooden study table with 2 drawers. Budget ₹3000-5000. Can share reference photo.')">
+          <span class="sample-cat">🪵 Carpenter</span>
+          <p>Custom wooden study table</p>
+        </div>
+        <div class="sample-req" onclick="fillSample('Ring resizing needed', 'My gold ring needs to be resized from size 14 to size 16. Need it done by this weekend.')">
+          <span class="sample-cat">💍 Goldsmith</span>
+          <p>Ring resizing needed</p>
+        </div>
+        <div class="sample-req" onclick="fillSample('Plumber needed urgently', 'Bathroom pipe is leaking. Need a plumber today. Located in Koramangala.')">
+          <span class="sample-cat">🔧 Plumber</span>
+          <p>Plumber needed urgently</p>
+        </div>
+      </div>
+
+    </aside>
+  </div>
+
+  <script src="js/main.js"></script>
+  <script src="js/post-requirement.js"></script>
+</body>
+</html>

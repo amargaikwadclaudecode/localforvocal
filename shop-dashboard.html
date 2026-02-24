@@ -1,0 +1,603 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Shop Dashboard — Local for Vocal</title>
+  <link rel="stylesheet" href="css/style.css"/>
+  <link rel="stylesheet" href="css/dashboard.css"/>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+</head>
+<body class="dashboard-body">
+
+  <!-- SIDEBAR NAV -->
+  <aside class="dash-sidebar" id="dashSidebar">
+    <div class="dash-brand">
+      <a href="index.html">
+        <span>🌿</span>
+        <span class="brand-name">Local<span class="accent">4</span>Vocal</span>
+      </a>
+    </div>
+
+    <div class="dash-shop-info">
+      <div class="dash-shop-avatar">💊</div>
+      <div>
+        <h4>City Medical Store</h4>
+        <span class="dash-shop-status active-status"><i class="fas fa-circle"></i> Active</span>
+      </div>
+    </div>
+
+    <nav class="dash-nav">
+      <a href="#" class="dash-nav-item active" onclick="switchTab('overview', this)">
+        <i class="fas fa-chart-pie"></i> Overview
+      </a>
+      <a href="#" class="dash-nav-item" onclick="switchTab('messages', this)">
+        <i class="fas fa-message"></i> Messages
+        <span class="nav-badge">3</span>
+      </a>
+      <a href="#" class="dash-nav-item" onclick="switchTab('requirements', this)">
+        <i class="fas fa-clipboard-list"></i> Requirements
+        <span class="nav-badge">5</span>
+      </a>
+      <a href="#" class="dash-nav-item" onclick="switchTab('profile', this)">
+        <i class="fas fa-store"></i> My Profile
+      </a>
+      <a href="#" class="dash-nav-item" onclick="switchTab('offers', this)">
+        <i class="fas fa-tag"></i> Offers & Posts
+      </a>
+      <a href="#" class="dash-nav-item" onclick="switchTab('subscription', this)">
+        <i class="fas fa-crown"></i> Subscription
+      </a>
+      <a href="#" class="dash-nav-item" onclick="switchTab('analytics', this)">
+        <i class="fas fa-chart-line"></i> Analytics
+      </a>
+    </nav>
+
+    <div class="dash-sidebar-footer">
+      <a href="shop-profile.html" class="view-profile-btn" target="_blank">
+        <i class="fas fa-eye"></i> View My Profile
+      </a>
+      <button class="logout-btn" onclick="logout()">
+        <i class="fas fa-right-from-bracket"></i> Logout
+      </button>
+    </div>
+  </aside>
+
+  <!-- MAIN CONTENT -->
+  <div class="dash-main">
+
+    <!-- TOP BAR -->
+    <header class="dash-topbar">
+      <button class="sidebar-toggle" onclick="toggleSidebar()">
+        <i class="fas fa-bars"></i>
+      </button>
+      <div class="dash-topbar-title" id="topbarTitle">Overview</div>
+      <div class="dash-topbar-right">
+        <div class="availability-toggle">
+          <span>Available Today</span>
+          <label class="toggle-wrap">
+            <input type="checkbox" id="availabilityToggle" checked onchange="toggleAvailability()"/>
+            <span class="toggle-slider"></span>
+          </label>
+        </div>
+        <button class="notif-btn"><i class="fas fa-bell"></i><span class="notif-dot"></span></button>
+      </div>
+    </header>
+
+    <!-- ===== OVERVIEW TAB ===== -->
+    <div class="dash-tab active" id="tab-overview">
+      <div class="dash-page-header">
+        <h2>Good Morning, Ravi! 👋</h2>
+        <p>Here's how your shop is performing today.</p>
+      </div>
+
+      <!-- STATS CARDS -->
+      <div class="stats-grid">
+        <div class="stat-card">
+          <div class="stat-icon" style="background:#e8f5e9"><i class="fas fa-eye" style="color:var(--green-main)"></i></div>
+          <div class="stat-info">
+            <span class="stat-value">248</span>
+            <span class="stat-label">Profile Views</span>
+            <span class="stat-change positive"><i class="fas fa-arrow-up"></i> 12% this week</span>
+          </div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon" style="background:#e3f2fd"><i class="fas fa-message" style="color:#1565c0"></i></div>
+          <div class="stat-info">
+            <span class="stat-value">18</span>
+            <span class="stat-label">Messages Received</span>
+            <span class="stat-change positive"><i class="fas fa-arrow-up"></i> 5 new today</span>
+          </div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon" style="background:#fff3e0"><i class="fas fa-clipboard-list" style="color:#e65100"></i></div>
+          <div class="stat-info">
+            <span class="stat-value">5</span>
+            <span class="stat-label">New Requirements</span>
+            <span class="stat-change neutral"><i class="fas fa-minus"></i> Same as yesterday</span>
+          </div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon" style="background:#fce4ec"><i class="fas fa-star" style="color:#c62828"></i></div>
+          <div class="stat-info">
+            <span class="stat-value">4.8</span>
+            <span class="stat-label">Average Rating</span>
+            <span class="stat-change positive"><i class="fas fa-arrow-up"></i> 2 new reviews</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- QUICK ACTIONS -->
+      <div class="quick-actions-section">
+        <h3 class="section-heading">Quick Actions</h3>
+        <div class="quick-actions-grid">
+          <button class="quick-action-btn" onclick="switchTab('offers', document.querySelector('[onclick*=offers]'))">
+            <i class="fas fa-plus-circle"></i>
+            <span>Post an Offer</span>
+          </button>
+          <button class="quick-action-btn" onclick="switchTab('messages', document.querySelector('[onclick*=messages]'))">
+            <i class="fas fa-reply"></i>
+            <span>Reply Messages</span>
+          </button>
+          <button class="quick-action-btn" onclick="switchTab('requirements', document.querySelector('[onclick*=requirements]'))">
+            <i class="fas fa-clipboard-check"></i>
+            <span>View Requirements</span>
+          </button>
+          <button class="quick-action-btn" onclick="switchTab('profile', document.querySelector('[onclick*=profile]'))">
+            <i class="fas fa-pen-to-square"></i>
+            <span>Edit Profile</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- RECENT MESSAGES -->
+      <div class="overview-section">
+        <div class="section-row-header">
+          <h3 class="section-heading">Recent Messages</h3>
+          <button class="see-all-btn" onclick="switchTab('messages', document.querySelector('[onclick*=messages]'))">See All</button>
+        </div>
+        <div class="mini-messages">
+          <div class="mini-msg unread">
+            <div class="mini-msg-avatar">R</div>
+            <div class="mini-msg-info">
+              <span class="mini-msg-name">Rahul M.</span>
+              <span class="mini-msg-text">Do you have Paracetamol 650mg in stock?</span>
+            </div>
+            <span class="mini-msg-time">2m ago</span>
+          </div>
+          <div class="mini-msg unread">
+            <div class="mini-msg-avatar">P</div>
+            <div class="mini-msg-info">
+              <span class="mini-msg-name">Priya S.</span>
+              <span class="mini-msg-text">What are your home delivery charges?</span>
+            </div>
+            <span class="mini-msg-time">15m ago</span>
+          </div>
+          <div class="mini-msg">
+            <div class="mini-msg-avatar">A</div>
+            <div class="mini-msg-info">
+              <span class="mini-msg-name">Amit K.</span>
+              <span class="mini-msg-text">Thank you, received my order!</span>
+            </div>
+            <span class="mini-msg-time">1h ago</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- RECENT REQUIREMENTS -->
+      <div class="overview-section">
+        <div class="section-row-header">
+          <h3 class="section-heading">New Requirements Near You</h3>
+          <button class="see-all-btn" onclick="switchTab('requirements', document.querySelector('[onclick*=requirements]'))">See All</button>
+        </div>
+        <div class="mini-requirements">
+          <div class="mini-req">
+            <div class="mini-req-cat">💊 Medical</div>
+            <div class="mini-req-info">
+              <span class="mini-req-title">Need Paracetamol 500mg strips</span>
+              <span class="mini-req-meta">1.2 km • Today • Budget: ₹50-100</span>
+            </div>
+            <button class="respond-btn" onclick="switchTab('requirements', document.querySelector('[onclick*=requirements]'))">Respond</button>
+          </div>
+          <div class="mini-req">
+            <div class="mini-req-cat">💊 Medical</div>
+            <div class="mini-req-info">
+              <span class="mini-req-title">Diabetic medicine — Metformin 500</span>
+              <span class="mini-req-meta">3.4 km • This Week • No budget set</span>
+            </div>
+            <button class="respond-btn" onclick="switchTab('requirements', document.querySelector('[onclick*=requirements]'))">Respond</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== MESSAGES TAB ===== -->
+    <div class="dash-tab" id="tab-messages" style="display:none">
+      <div class="dash-page-header">
+        <h2>Messages</h2>
+        <p>Conversations with your customers</p>
+      </div>
+      <div class="messages-layout">
+        <div class="messages-list">
+          <div class="msg-search">
+            <i class="fas fa-search"></i>
+            <input type="text" placeholder="Search conversations..."/>
+          </div>
+          <div class="conv-item active-conv" onclick="openConv(this, 'Rahul M.', 'Do you have Paracetamol 650mg?')">
+            <div class="conv-avatar unread-avatar">R</div>
+            <div class="conv-info">
+              <span class="conv-name">Rahul M.</span>
+              <span class="conv-last">Do you have Paracetamol 650mg?</span>
+            </div>
+            <div class="conv-meta">
+              <span class="conv-time">2m</span>
+              <span class="unread-dot"></span>
+            </div>
+          </div>
+          <div class="conv-item" onclick="openConv(this, 'Priya S.', 'What are your home delivery charges?')">
+            <div class="conv-avatar unread-avatar">P</div>
+            <div class="conv-info">
+              <span class="conv-name">Priya S.</span>
+              <span class="conv-last">What are your delivery charges?</span>
+            </div>
+            <div class="conv-meta">
+              <span class="conv-time">15m</span>
+              <span class="unread-dot"></span>
+            </div>
+          </div>
+          <div class="conv-item" onclick="openConv(this, 'Amit K.', 'Thank you, received my order!')">
+            <div class="conv-avatar">A</div>
+            <div class="conv-info">
+              <span class="conv-name">Amit K.</span>
+              <span class="conv-last">Thank you, received my order!</span>
+            </div>
+            <div class="conv-meta">
+              <span class="conv-time">1h</span>
+            </div>
+          </div>
+          <div class="conv-item" onclick="openConv(this, 'Sunita R.', 'Do you stock surgical gloves?')">
+            <div class="conv-avatar">S</div>
+            <div class="conv-info">
+              <span class="conv-name">Sunita R.</span>
+              <span class="conv-last">Do you stock surgical gloves?</span>
+            </div>
+            <div class="conv-meta">
+              <span class="conv-time">3h</span>
+            </div>
+          </div>
+        </div>
+        <div class="message-window" id="messageWindow">
+          <div class="msg-window-header">
+            <div class="msg-window-customer" id="msgWindowCustomer">Rahul M.</div>
+            <div class="msg-window-actions">
+              <button onclick="callCustomer()"><i class="fas fa-phone"></i></button>
+            </div>
+          </div>
+          <div class="msg-window-body" id="msgWindowBody">
+            <div class="dash-chat-msg customer-msg">
+              <p id="firstMsg">Do you have Paracetamol 650mg in stock?</p>
+              <span class="msg-time">2 minutes ago</span>
+            </div>
+          </div>
+          <div class="msg-window-input">
+            <input type="text" id="dashChatInput" placeholder="Type your reply..." onkeypress="dashChatEnter(event)"/>
+            <label class="chat-attach"><i class="fas fa-paperclip"></i><input type="file" style="display:none"/></label>
+            <button onclick="sendDashMessage()"><i class="fas fa-paper-plane"></i></button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== REQUIREMENTS TAB ===== -->
+    <div class="dash-tab" id="tab-requirements" style="display:none">
+      <div class="dash-page-header">
+        <h2>Customer Requirements</h2>
+        <p>Requirements posted by customers near your shop</p>
+      </div>
+      <div class="requirements-list">
+        <div class="req-card new-req">
+          <div class="req-card-top">
+            <span class="req-cat-badge">💊 Medical</span>
+            <span class="req-urgency urgent">🔥 Today</span>
+            <span class="req-distance"><i class="fas fa-location-dot"></i> 1.2 km</span>
+            <span class="req-new-badge">New</span>
+          </div>
+          <h4 class="req-card-title">Need Paracetamol 500mg strips</h4>
+          <p class="req-card-desc">I need 5 strips of Paracetamol 500mg, any brand. Need it today urgently.</p>
+          <div class="req-card-meta">
+            <span><i class="fas fa-indian-rupee-sign"></i> Budget: ₹50–100</span>
+            <span><i class="fas fa-clock"></i> Posted 10 min ago</span>
+          </div>
+          <div class="req-card-actions">
+            <button class="req-respond-btn" onclick="respondToReq(this)">
+              <i class="fas fa-reply"></i> Respond to Customer
+            </button>
+            <button class="req-ignore-btn" onclick="ignoreReq(this)">Ignore</button>
+          </div>
+        </div>
+
+        <div class="req-card new-req">
+          <div class="req-card-top">
+            <span class="req-cat-badge">💊 Medical</span>
+            <span class="req-urgency week">📅 This Week</span>
+            <span class="req-distance"><i class="fas fa-location-dot"></i> 3.4 km</span>
+            <span class="req-new-badge">New</span>
+          </div>
+          <h4 class="req-card-title">Diabetic medicine — Metformin 500</h4>
+          <p class="req-card-desc">Looking for Metformin 500mg tablets, need a monthly stock. Please let me know if available and pricing.</p>
+          <div class="req-card-meta">
+            <span><i class="fas fa-indian-rupee-sign"></i> Budget: Not set</span>
+            <span><i class="fas fa-clock"></i> Posted 45 min ago</span>
+          </div>
+          <div class="req-card-actions">
+            <button class="req-respond-btn" onclick="respondToReq(this)">
+              <i class="fas fa-reply"></i> Respond to Customer
+            </button>
+            <button class="req-ignore-btn" onclick="ignoreReq(this)">Ignore</button>
+          </div>
+        </div>
+
+        <div class="req-card">
+          <div class="req-card-top">
+            <span class="req-cat-badge">💊 Medical</span>
+            <span class="req-urgency month">🗓️ This Month</span>
+            <span class="req-distance"><i class="fas fa-location-dot"></i> 7.1 km</span>
+          </div>
+          <h4 class="req-card-title">First Aid Kit for office</h4>
+          <p class="req-card-desc">Need a complete first aid kit for our office of 20 people. Looking for bulk pricing if possible.</p>
+          <div class="req-card-meta">
+            <span><i class="fas fa-indian-rupee-sign"></i> Budget: ₹500–1500</span>
+            <span><i class="fas fa-clock"></i> Posted 2 hours ago</span>
+          </div>
+          <div class="req-card-actions">
+            <button class="req-respond-btn" onclick="respondToReq(this)">
+              <i class="fas fa-reply"></i> Respond to Customer
+            </button>
+            <button class="req-ignore-btn" onclick="ignoreReq(this)">Ignore</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== PROFILE TAB ===== -->
+    <div class="dash-tab" id="tab-profile" style="display:none">
+      <div class="dash-page-header">
+        <h2>My Shop Profile</h2>
+        <p>Update your shop information</p>
+      </div>
+      <div class="profile-edit-card">
+        <div class="profile-edit-banner">
+          <div class="profile-edit-cover">
+            <span style="font-size:4rem">💊</span>
+            <button class="edit-cover-btn"><i class="fas fa-camera"></i> Change Cover</button>
+          </div>
+          <div class="profile-edit-logo-wrap">
+            <div class="profile-edit-logo">💊</div>
+            <button class="edit-logo-btn"><i class="fas fa-camera"></i></button>
+          </div>
+        </div>
+
+        <div class="profile-edit-form">
+          <div class="form-row-edit">
+            <div class="form-group">
+              <label class="form-label">Shop Name</label>
+              <input type="text" class="form-input" value="City Medical Store"/>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Category</label>
+              <input type="text" class="form-input" value="Medical • Pharmacy" disabled/>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Description</label>
+            <textarea class="form-textarea" rows="3">City Medical Store has been serving the local community for over 15 years. We stock a wide range of medicines, surgical equipment, and health products.</textarea>
+          </div>
+          <div class="form-row-edit">
+            <div class="form-group">
+              <label class="form-label">Phone</label>
+              <input type="text" class="form-input" value="+91 98765 43210"/>
+            </div>
+            <div class="form-group">
+              <label class="form-label">WhatsApp</label>
+              <input type="text" class="form-input" value="+91 98765 43210"/>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Address</label>
+            <input type="text" class="form-input" value="12, Gandhi Nagar, Near Bus Stand, Pune – 411001"/>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Products / Services Tags</label>
+            <div class="edit-tags">
+              <span class="tag-chip">Paracetamol <button>×</button></span>
+              <span class="tag-chip">BP Medicines <button>×</button></span>
+              <span class="tag-chip">Diabetic Supplies <button>×</button></span>
+              <span class="tag-chip">Surgical Items <button>×</button></span>
+              <span class="tag-chip add-tag-chip" onclick="addEditTag()">+ Add Tag</span>
+            </div>
+          </div>
+          <button class="save-profile-btn" onclick="saveProfile()">
+            <i class="fas fa-floppy-disk"></i> Save Changes
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== OFFERS TAB ===== -->
+    <div class="dash-tab" id="tab-offers" style="display:none">
+      <div class="dash-page-header">
+        <h2>Offers & Posts</h2>
+        <p>Post offers and updates to attract customers</p>
+      </div>
+
+      <div class="offer-create-card">
+        <h3>Create New Post</h3>
+        <div class="offer-type-row">
+          <button class="offer-type-btn active" onclick="pickOfferType(this)">🎉 Special Offer</button>
+          <button class="offer-type-btn" onclick="pickOfferType(this)">📢 Announcement</button>
+          <button class="offer-type-btn" onclick="pickOfferType(this)">🆕 New Arrival</button>
+        </div>
+        <div class="form-group" style="margin-top:16px">
+          <label class="form-label">Post Title</label>
+          <input type="text" class="form-input" id="offerTitle" placeholder="e.g. 10% off on all vitamins today!"/>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Details</label>
+          <textarea class="form-textarea" id="offerDesc" rows="3" placeholder="Describe the offer or announcement..."></textarea>
+        </div>
+        <div class="form-row-edit">
+          <div class="form-group">
+            <label class="form-label">Valid Until</label>
+            <input type="date" class="form-input" id="offerExpiry"/>
+          </div>
+        </div>
+        <button class="post-offer-btn" onclick="postOffer()">
+          <i class="fas fa-bullhorn"></i> Post Now
+        </button>
+      </div>
+
+      <div class="active-offers">
+        <h3 class="section-heading">Active Posts</h3>
+        <div class="offer-item">
+          <div class="offer-item-icon">🎉</div>
+          <div class="offer-item-info">
+            <h4>10% off on diabetic medicines</h4>
+            <p>Valid today only! Show this offer at the counter.</p>
+            <span class="offer-expiry">Expires: Today</span>
+          </div>
+          <button class="delete-offer-btn" onclick="deleteOffer(this)"><i class="fas fa-trash"></i></button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== SUBSCRIPTION TAB ===== -->
+    <div class="dash-tab" id="tab-subscription" style="display:none">
+      <div class="dash-page-header">
+        <h2>Subscription</h2>
+        <p>Boost your shop visibility with a featured plan</p>
+      </div>
+
+      <div class="current-plan-card">
+        <div class="plan-icon">🆓</div>
+        <div>
+          <h3>Current Plan: Free</h3>
+          <p>You're on the free plan. Upgrade to get featured placement and more visibility.</p>
+        </div>
+      </div>
+
+      <div class="plans-grid">
+        <div class="plan-card">
+          <div class="plan-header">
+            <h3>Free</h3>
+            <div class="plan-price">₹0 <span>/month</span></div>
+          </div>
+          <ul class="plan-features">
+            <li><i class="fas fa-check"></i> Basic shop listing</li>
+            <li><i class="fas fa-check"></i> Appear in search results</li>
+            <li><i class="fas fa-check"></i> Receive messages</li>
+            <li><i class="fas fa-check"></i> Respond to requirements</li>
+            <li class="disabled"><i class="fas fa-xmark"></i> Featured placement</li>
+            <li class="disabled"><i class="fas fa-xmark"></i> Priority in search</li>
+            <li class="disabled"><i class="fas fa-xmark"></i> Featured badge</li>
+          </ul>
+          <button class="plan-btn current-plan-btn" disabled>Current Plan</button>
+        </div>
+
+        <div class="plan-card featured-plan">
+          <div class="plan-popular">Most Popular</div>
+          <div class="plan-header">
+            <h3>Featured ⭐</h3>
+            <div class="plan-price">₹499 <span>/month</span></div>
+            <div class="plan-save">Save 20% — ₹399/month billed quarterly</div>
+          </div>
+          <ul class="plan-features">
+            <li><i class="fas fa-check"></i> Everything in Free</li>
+            <li><i class="fas fa-check"></i> Featured at top of results</li>
+            <li><i class="fas fa-check"></i> ⭐ Featured badge on profile</li>
+            <li><i class="fas fa-check"></i> Priority search ranking</li>
+            <li><i class="fas fa-check"></i> Highlighted map pin</li>
+            <li><i class="fas fa-check"></i> Analytics dashboard</li>
+            <li><i class="fas fa-check"></i> Unlimited offers & posts</li>
+          </ul>
+          <button class="plan-btn upgrade-btn" onclick="upgradePlan()">
+            <i class="fas fa-crown"></i> Upgrade Now
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== ANALYTICS TAB ===== -->
+    <div class="dash-tab" id="tab-analytics" style="display:none">
+      <div class="dash-page-header">
+        <h2>Analytics</h2>
+        <p>Track your shop performance over time</p>
+      </div>
+
+      <div class="analytics-stats">
+        <div class="analytics-card">
+          <h4>This Week</h4>
+          <div class="analytics-num">248</div>
+          <p>Profile Views</p>
+          <div class="simple-bar-chart">
+            <div class="bar-day"><div class="bar-fill-day" style="height:40%"></div><span>Mon</span></div>
+            <div class="bar-day"><div class="bar-fill-day" style="height:65%"></div><span>Tue</span></div>
+            <div class="bar-day"><div class="bar-fill-day" style="height:50%"></div><span>Wed</span></div>
+            <div class="bar-day"><div class="bar-fill-day" style="height:80%"></div><span>Thu</span></div>
+            <div class="bar-day"><div class="bar-fill-day" style="height:70%"></div><span>Fri</span></div>
+            <div class="bar-day"><div class="bar-fill-day" style="height:90%"></div><span>Sat</span></div>
+            <div class="bar-day"><div class="bar-fill-day" style="height:45%"></div><span>Sun</span></div>
+          </div>
+        </div>
+        <div class="analytics-card">
+          <h4>This Week</h4>
+          <div class="analytics-num">18</div>
+          <p>Messages Received</p>
+          <div class="simple-bar-chart">
+            <div class="bar-day"><div class="bar-fill-day" style="height:30%;background:#1565c0"></div><span>Mon</span></div>
+            <div class="bar-day"><div class="bar-fill-day" style="height:50%;background:#1565c0"></div><span>Tue</span></div>
+            <div class="bar-day"><div class="bar-fill-day" style="height:40%;background:#1565c0"></div><span>Wed</span></div>
+            <div class="bar-day"><div class="bar-fill-day" style="height:70%;background:#1565c0"></div><span>Thu</span></div>
+            <div class="bar-day"><div class="bar-fill-day" style="height:60%;background:#1565c0"></div><span>Fri</span></div>
+            <div class="bar-day"><div class="bar-fill-day" style="height:80%;background:#1565c0"></div><span>Sat</span></div>
+            <div class="bar-day"><div class="bar-fill-day" style="height:35%;background:#1565c0"></div><span>Sun</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="analytics-summary">
+        <div class="summary-item">
+          <span class="summary-label">Total Profile Views (All Time)</span>
+          <span class="summary-value">1,842</span>
+        </div>
+        <div class="summary-item">
+          <span class="summary-label">Total Messages (All Time)</span>
+          <span class="summary-value">134</span>
+        </div>
+        <div class="summary-item">
+          <span class="summary-label">Requirements Responded</span>
+          <span class="summary-value">28</span>
+        </div>
+        <div class="summary-item">
+          <span class="summary-label">Total Reviews</span>
+          <span class="summary-value">124</span>
+        </div>
+        <div class="summary-item">
+          <span class="summary-label">Average Rating</span>
+          <span class="summary-value">4.8 ⭐</span>
+        </div>
+        <div class="summary-item">
+          <span class="summary-label">Member Since</span>
+          <span class="summary-value">Jan 2024</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- SIDEBAR OVERLAY (mobile) -->
+  <div class="dash-overlay" id="dashOverlay" onclick="toggleSidebar()"></div>
+
+  <script src="js/dashboard.js"></script>
+</body>
+</html>
