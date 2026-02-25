@@ -70,6 +70,7 @@ function adminSwitchTab(name, navItem) {
 
   document.getElementById('adminTopbarTitle').textContent = titles[name] || name;
 
+  if (name === 'subscriptions') checkSubscriptionExpiry(); 
   // Close mobile sidebar
   document.getElementById('adminSidebar').classList.remove('open');
   document.getElementById('adminOverlay').classList.remove('active');
@@ -213,71 +214,78 @@ function revokeSubscription(btn) {
 }
 
 function addManualSub() {
- const inputs = document.querySelectorAll('.manual-sub-form .form-input');
-const shopName = inputs[0].value.trim();
-const shopPhone = inputs[1].value.trim();
-const plan = inputs[2].value;
-const startDate = inputs[3].value;
+  const inputs = document.querySelectorAll('.manual-sub-form .form-input');
+  const shopName = inputs[0].value.trim();
+  const shopPhone = inputs[1].value.trim();
+  const plan = inputs[2].value;
+  const startDate = inputs[3].value;
 
-if (shopPhone.length !== 10) { adminToast('⚠️ Please enter valid 10 digit phone number'); return; }
-  if (!shopName) { adminToast('⚠️ Please enter a shop name'); return; }
-  if (!startDate) { adminToast('⚠️ Please select a start date'); return; }
+  if (!shopName) { adminToast('Please enter a shop name'); return; }
+  if (shopPhone.length !== 10) { adminToast('Please enter valid 10 digit phone number'); return; }
+  if (!startDate) { adminToast('Please select a start date'); return; }
 
-  // Get plan details
   const isMonthly = plan.includes('Monthly');
   const amount = isMonthly ? 499 : 1197;
   const planLabel = isMonthly ? 'Monthly' : 'Quarterly';
 
-  // Calculate expiry date
   const start = new Date(startDate);
-  const expiry = new Date(startDate);
-  isMonthly ? expiry.setMonth(expiry.getMonth() + 1) : expiry.setMonth(expiry.getMonth() + 3);
-  const formatDate = (d) => d.toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' });
+  const expiry = new Date(start);
+  if (isMonthly) {
+    expiry.setMonth(expiry.getMonth() + 1);
+  } else {
+    expiry.setMonth(expiry.getMonth() + 3);
+  }
 
-  // Add row to subscriptions table
+  const startStr = start.toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' });
+  const expiryStr = expiry.toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' });
+
   const tbody = document.querySelector('#adminTab-subscriptions .admin-table tbody');
   const newRow = document.createElement('tr');
-  newRow.innerHTML = `
-    <td><div class="shop-cell"><span class="shop-emoji">🏪</span><span>${shopName}</span></div></td>
-    <td>${planLabel}</td>
-    <td>₹${amount.toLocaleString()}</td>
-    <td>${formatDate(start)}</td>
-    <td>${formatDate(expiry)}</td>
-    <td><span class="status-badge active-status">Active</span></td>
-    <td class="action-cell">
-      <button class="action-icon-btn reject" onclick="revokeSubscription(this)" title="Revoke">
-        <i class="fas fa-ban"></i>
-      </button>
-    </td>
-  `;
+
+  const td1 = document.createElement('td');
+  td1.innerHTML = '<div class="shop-cell"><span class="shop-emoji">🏪</span><div><span>' + shopName + '</span><small style="color:var(--text-light);display:block">+91 ' + shopPhone + '</small></div></div>';
+
+  const td2 = document.createElement('td');
+  td2.textContent = planLabel;
+
+  const td3 = document.createElement('td');
+  td3.textContent = '₹' + amount;
+
+  const td4 = document.createElement('td');
+  td4.textContent = startStr;
+
+  const td5 = document.createElement('td');
+  td5.textContent = expiryStr;
+
+  const td6 = document.createElement('td');
+  td6.innerHTML = '<span class="status-badge active-status">Active</span>';
+
+  const td7 = document.createElement('td');
+  td7.className = 'action-cell';
+  td7.innerHTML = '<button class="action-icon-btn reject" onclick="revokeSubscription(this)" title="Revoke"><i class="fas fa-ban"></i></button>';
+
+  newRow.appendChild(td1);
+  newRow.appendChild(td2);
+  newRow.appendChild(td3);
+  newRow.appendChild(td4);
+  newRow.appendChild(td5);
+  newRow.appendChild(td6);
+  newRow.appendChild(td7);
   tbody.appendChild(newRow);
 
-  // Update monthly revenue stat
-  const revenueStat = document.querySelector('.sub-stat-val:nth-child(1)');
-  const allStats = document.querySelectorAll('.sub-stat-val');
-  // Find the revenue stat (₹ sign)
-  allStats.forEach(stat => {
-    if (stat.textContent.includes('₹')) {
-      const current = parseInt(stat.textContent.replace(/[₹,]/g, '')) || 0;
-      const newTotal = current + amount;
-      stat.textContent = '₹' + newTotal.toLocaleString('en-IN');
-    }
-  });
+  const revenueEl = document.querySelectorAll('.sub-stat')[1].querySelector('.sub-stat-val');
+  const currentRevenue = parseInt(revenueEl.textContent.replace(/[₹,]/g, '')) || 0;
+  revenueEl.textContent = '₹' + (currentRevenue + amount).toLocaleString('en-IN');
 
-  // Update active featured count
-  allStats.forEach((stat, index) => {
-    if (index === 0 && !stat.textContent.includes('₹')) {
-      stat.textContent = parseInt(stat.textContent) + 1;
-    }
-  });
+  const activeEl = document.querySelectorAll('.sub-stat')[0].querySelector('.sub-stat-val');
+  activeEl.textContent = parseInt(activeEl.textContent) + 1;
 
-  // Clear form
   inputs[0].value = '';
-  inputs[2].value = '';
+  inputs[1].value = '';
+  inputs[3].value = '';
 
-  adminToast(`✅ Subscription added for ${shopName} — ₹${amount.toLocaleString()} added to revenue!`);
+  adminToast('Subscription added for ' + shopName + ' — ₹' + amount + ' added to revenue!');
 }
-
 // ---- REVIEWS ----
 function deleteReview(btn) {
   const row = btn.closest('tr');
@@ -289,27 +297,135 @@ function deleteReview(btn) {
 }
 
 // ---- REPORTS ----
-function suspendFromReport(btn) {
+// ---- REPORTS & INVESTIGATION ----
+function investigateReport(id, btn) {
+  const box = document.getElementById('investigation-' + id);
   const card = btn.closest('.report-card');
-  card.style.opacity = '0.5';
-  card.style.pointerEvents = 'none';
-  adminToast('⛔ Shop suspended from report!');
+  const badge = document.getElementById('badge-' + id);
+  const isOpen = box.style.display !== 'none';
+
+  if (isOpen) {
+    box.style.display = 'none';
+    btn.innerHTML = '<i class="fas fa-search"></i> Investigate';
+    btn.classList.remove('active-inv');
+  } else {
+    box.style.display = 'block';
+    btn.innerHTML = '<i class="fas fa-chevron-up"></i> Close';
+    btn.classList.add('active-inv');
+    card.classList.add('investigating');
+
+    if (badge && badge.textContent === 'New') {
+      badge.textContent = 'Investigating';
+      badge.className = 'activity-badge';
+      badge.style.background = '#e3f2fd';
+      badge.style.color = '#1565c0';
+      updateReportStats();
+    }
+  }
 }
 
-function deleteReviewFromReport(btn) {
-  const card = btn.closest('.report-card');
-  card.style.opacity = '0.5';
-  card.style.pointerEvents = 'none';
-  adminToast('🗑️ Review deleted!');
+function addInvestigationNote(id) {
+  const input = document.getElementById('invInput-' + id);
+  const note = input.value.trim();
+  if (!note) return;
+
+  const timeline = document.getElementById('timeline-' + id);
+  const now = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+
+  const noteEl = document.createElement('div');
+  noteEl.className = 'inv-note';
+  noteEl.innerHTML =
+    '<div class="inv-note-dot"></div>' +
+    '<div class="inv-note-body">' +
+      '<div class="inv-note-text">' + note + '</div>' +
+      '<span class="inv-note-time">Admin — Today ' + now + '</span>' +
+    '</div>';
+
+  timeline.appendChild(noteEl);
+  input.value = '';
+  timeline.scrollTop = timeline.scrollHeight;
+  adminToast('Note added to investigation');
 }
 
-function dismissReport(btn) {
+function suspendFromReport(btn, id) {
   const card = btn.closest('.report-card');
-  card.style.opacity = '0';
-  setTimeout(() => card.remove(), 300);
-  adminToast('Report dismissed');
+  const badge = document.getElementById('badge-' + id);
+  if (confirm('Suspend this shop? It will be hidden from all customers.')) {
+    card.classList.remove('investigating');
+    card.classList.add('resolved');
+    if (badge) {
+      badge.textContent = 'Resolved — Suspended';
+      badge.className = 'activity-badge';
+      badge.style.background = '#ffebee';
+      badge.style.color = '#c62828';
+    }
+    const box = document.getElementById('investigation-' + id);
+    if (box) box.style.display = 'none';
+    updateReportStats();
+    adminToast('Shop suspended and report resolved');
+  }
 }
 
+function deleteReviewFromReport(btn, id) {
+  const card = btn.closest('.report-card');
+  const badge = document.getElementById('badge-' + id);
+  if (confirm('Delete this review? This cannot be undone.')) {
+    card.classList.remove('investigating');
+    card.classList.add('resolved');
+    if (badge) {
+      badge.textContent = 'Resolved — Deleted';
+      badge.className = 'activity-badge';
+      badge.style.background = '#e8f5e9';
+      badge.style.color = '#2e7d32';
+    }
+    const box = document.getElementById('investigation-' + id);
+    if (box) box.style.display = 'none';
+    updateReportStats();
+    adminToast('Review deleted and report resolved');
+  }
+}
+
+function dismissReport(btn, id) {
+  const card = btn.closest('.report-card');
+  const badge = document.getElementById('badge-' + id);
+  if (confirm('Dismiss this report? No action will be taken.')) {
+    card.classList.add('dismissed');
+    if (badge) {
+      badge.textContent = 'Dismissed';
+      badge.className = 'activity-badge';
+      badge.style.background = '#f5f5f5';
+      badge.style.color = '#888';
+    }
+    const box = document.getElementById('investigation-' + id);
+    if (box) box.style.display = 'none';
+    updateReportStats();
+    adminToast('Report dismissed');
+  }
+}
+
+function updateReportStats() {
+  const cards = document.querySelectorAll('.report-card');
+  let newCount = 0, investigatingCount = 0, resolvedCount = 0, dismissedCount = 0;
+
+  cards.forEach(card => {
+    const badge = card.querySelector('.activity-badge');
+    if (!badge) return;
+    const text = badge.textContent;
+    if (text === 'New') newCount++;
+    else if (text === 'Investigating') investigatingCount++;
+    else if (text.includes('Resolved')) resolvedCount++;
+    else if (text === 'Dismissed') dismissedCount++;
+  });
+
+  const s1 = document.getElementById('statNew');
+  const s2 = document.getElementById('statInvestigating');
+  const s3 = document.getElementById('statResolved');
+  const s4 = document.getElementById('statDismissed');
+  if (s1) s1.textContent = newCount;
+  if (s2) s2.textContent = investigatingCount;
+  if (s3) s3.textContent = resolvedCount;
+  if (s4) s4.textContent = dismissedCount;
+}
 function addCategory() {
   const name = prompt('Enter new category name:');
   if (!name) return;
@@ -361,3 +477,98 @@ function adminToast(message) {
   document.body.appendChild(toast);
   setTimeout(() => toast.remove(), 3000);
 }
+// ---- AUTO SUBSCRIPTION STATUS CHECK ----
+function checkSubscriptionExpiry() {
+  const rows = document.querySelectorAll('#adminTab-subscriptions .admin-table tbody tr');
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
+
+  rows.forEach(row => {
+    const cells = row.querySelectorAll('td');
+    if (cells.length < 6) return;
+
+    const expiryText = cells[4].textContent.trim();
+    const statusBadge = cells[5].querySelector('.status-badge');
+    const actionBtn = row.querySelector('.action-cell button');
+    if (!statusBadge || !expiryText) return;
+
+    const expiry = new Date(expiryText.trim());
+if (isNaN(expiry.getTime())) return;
+    expiry.setHours(0, 0, 0, 0);
+
+    const isExpired = expiry < today;
+    const isRevoked = statusBadge.classList.contains('suspended-status') 
+                      && statusBadge.textContent.trim() === 'Revoked';
+
+    if (isExpired && !isRevoked) {
+      // Auto expire
+      statusBadge.textContent = 'Expired';
+      statusBadge.className = 'status-badge suspended-status';
+      if (actionBtn) {
+        actionBtn.title = 'Reactivate';
+        actionBtn.innerHTML = '<i class="fas fa-rotate-right"></i>';
+        actionBtn.classList.remove('reject');
+        actionBtn.classList.add('approve');
+      }
+    } else if (!isExpired && !isRevoked) {
+      // Still active
+      statusBadge.textContent = 'Active';
+      statusBadge.className = 'status-badge active-status';
+      if (actionBtn) {
+        actionBtn.title = 'Revoke';
+        actionBtn.innerHTML = '<i class="fas fa-ban"></i>';
+        actionBtn.classList.remove('approve');
+        actionBtn.classList.add('reject');
+      }
+    }
+  });
+
+  updateSubStats();
+}
+
+function updateSubStats() {
+  const rows = document.querySelectorAll('#adminTab-subscriptions .admin-table tbody tr');
+  let activeCount = 0;
+  let totalRevenue = 0;
+  let expiringCount = 0;
+
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
+
+  const weekLater = new Date(today);
+  weekLater.setDate(weekLater.getDate() + 7);
+
+  rows.forEach(row => {
+    const cells = row.querySelectorAll('td');
+    if (cells.length < 6) return;
+
+    const statusBadge = cells[5].querySelector('.status-badge');
+    const amountText = cells[2].textContent.replace(/[₹,]/g, '').trim();
+    const expiryText = cells[4].textContent.trim();
+    const amount = parseInt(amountText) || 0;
+ const expiry = new Date(expiryText.trim());
+if (isNaN(expiry.getTime())) return;
+
+    if (statusBadge && statusBadge.classList.contains('active-status')) {
+      activeCount++;
+      totalRevenue += amount;
+
+      if (expiry <= weekLater && expiry >= today) {
+        expiringCount++;
+      }
+    }
+  });
+
+  const stats = document.querySelectorAll('.sub-stat');
+  if (stats[0]) stats[0].querySelector('.sub-stat-val').textContent = activeCount;
+  if (stats[1]) stats[1].querySelector('.sub-stat-val').textContent = '₹' + totalRevenue.toLocaleString('en-IN');
+  if (stats[2]) stats[2].querySelector('.sub-stat-val').textContent = expiringCount;
+}
+
+// Run check every time subscriptions tab is opened
+// and every 60 seconds while on page
+document.addEventListener('DOMContentLoaded', () => {
+  checkSubscriptionExpiry();
+  setInterval(checkSubscriptionExpiry, 60000);
+  updateReportStats();
+});

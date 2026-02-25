@@ -576,46 +576,117 @@
       </div>
 
       <!-- ===== REPORTS TAB ===== -->
-      <div class="admin-tab" id="adminTab-reports" style="display:none">
+        <div class="admin-tab" id="adminTab-reports" style="display:none">
         <div class="admin-page-header">
           <h2>Reports & Complaints</h2>
-          <p>User reported shops and issues</p>
+          <p>Investigate and take action on user reported issues</p>
         </div>
-        <div class="reports-list">
-          <div class="report-card urgent-report">
+
+        <!-- REPORT STATS -->
+        <div class="report-stats-row">
+          <div class="report-stat" style="border-left:3px solid #c62828">
+            <span class="report-stat-val" id="statNew">2</span>
+            <span class="report-stat-label">New Reports</span>
+          </div>
+          <div class="report-stat" style="border-left:3px solid #f57f17">
+            <span class="report-stat-val" id="statInvestigating">0</span>
+            <span class="report-stat-label">Under Investigation</span>
+          </div>
+          <div class="report-stat" style="border-left:3px solid #1565c0">
+            <span class="report-stat-val" id="statResolved">0</span>
+            <span class="report-stat-label">Resolved</span>
+          </div>
+          <div class="report-stat" style="border-left:3px solid #888">
+            <span class="report-stat-val" id="statDismissed">0</span>
+            <span class="report-stat-label">Dismissed</span>
+          </div>
+        </div>
+
+        <div class="reports-list" id="reportsList">
+
+          <!-- REPORT 1 -->
+          <div class="report-card urgent-report" data-status="new" data-id="r1">
             <div class="report-header">
               <span class="report-type">🚨 Shop Report</span>
               <span class="report-time">2 hours ago</span>
-              <span class="activity-badge danger-badge">New</span>
+              <span class="activity-badge danger-badge" id="badge-r1">New</span>
+              <span class="report-count-badge">3 reports</span>
             </div>
             <h4>XYZ Electronics — Fake shop, took money and disappeared</h4>
-            <p>Reported by: Sunita R. (3 others also reported this shop)</p>
+            <p class="report-desc">Reported by: Sunita R., Amit K., Priya S. — Multiple users say this shop collected advance payment and is now unreachable.</p>
+
+            <!-- INVESTIGATION TIMELINE -->
+            <div class="investigation-box" id="investigation-r1" style="display:none">
+              <div class="inv-title"><i class="fas fa-search"></i> Investigation Notes</div>
+              <div class="inv-timeline" id="timeline-r1"></div>
+              <div class="inv-input-row">
+                <input type="text" class="inv-input" id="invInput-r1" placeholder="Add investigation note..."/>
+                <button class="inv-add-btn" onclick="addInvestigationNote('r1')">Add Note</button>
+              </div>
+              <div class="inv-checklist">
+                <div class="inv-check-title">Investigation Checklist</div>
+                <label class="inv-check-item"><input type="checkbox" id="chk-r1-1"/> Verified shop registration details</label>
+                <label class="inv-check-item"><input type="checkbox" id="chk-r1-2"/> Contacted shop owner on phone</label>
+                <label class="inv-check-item"><input type="checkbox" id="chk-r1-3"/> Reviewed all reported complaints</label>
+                <label class="inv-check-item"><input type="checkbox" id="chk-r1-4"/> Checked shop activity and messages</label>
+                <label class="inv-check-item"><input type="checkbox" id="chk-r1-5"/> Decision taken and communicated</label>
+              </div>
+            </div>
+
             <div class="report-actions">
-              <button class="report-action-btn suspend-btn" onclick="suspendFromReport(this)">
+              <button class="report-action-btn investigate-btn" onclick="investigateReport('r1', this)">
+                <i class="fas fa-search"></i> Investigate
+              </button>
+              <button class="report-action-btn suspend-btn" onclick="suspendFromReport(this, 'r1')">
                 <i class="fas fa-ban"></i> Suspend Shop
               </button>
-              <button class="report-action-btn dismiss-btn" onclick="dismissReport(this)">
+              <button class="report-action-btn dismiss-btn" onclick="dismissReport(this, 'r1')">
                 Dismiss
               </button>
             </div>
           </div>
 
-          <div class="report-card">
+          <!-- REPORT 2 -->
+          <div class="report-card" data-status="new" data-id="r2">
             <div class="report-header">
               <span class="report-type">⚠️ Review Report</span>
               <span class="report-time">1 day ago</span>
+              <span class="activity-badge pending-badge" id="badge-r2">New</span>
+              <span class="report-count-badge">1 report</span>
             </div>
             <h4>Fake review on City Medical Store</h4>
-            <p>Reported by: Shop Owner — review appears to be from a competitor</p>
+            <p class="report-desc">Reported by: Shop Owner (Ravi Patel) — The 1-star review appears to be from a competitor. Review text seems scripted and user has no previous activity.</p>
+
+            <!-- INVESTIGATION TIMELINE -->
+            <div class="investigation-box" id="investigation-r2" style="display:none">
+              <div class="inv-title"><i class="fas fa-search"></i> Investigation Notes</div>
+              <div class="inv-timeline" id="timeline-r2"></div>
+              <div class="inv-input-row">
+                <input type="text" class="inv-input" id="invInput-r2" placeholder="Add investigation note..."/>
+                <button class="inv-add-btn" onclick="addInvestigationNote('r2')">Add Note</button>
+              </div>
+              <div class="inv-checklist">
+                <div class="inv-check-title">Investigation Checklist</div>
+                <label class="inv-check-item"><input type="checkbox"/> Checked reviewer's account history</label>
+                <label class="inv-check-item"><input type="checkbox"/> Verified if reviewer visited the shop</label>
+                <label class="inv-check-item"><input type="checkbox"/> Reviewed similar reviews from same user</label>
+                <label class="inv-check-item"><input type="checkbox"/> Decision taken</label>
+              </div>
+            </div>
+
             <div class="report-actions">
-              <button class="report-action-btn suspend-btn" onclick="deleteReviewFromReport(this)">
+              <button class="report-action-btn investigate-btn" onclick="investigateReport('r2', this)">
+                <i class="fas fa-search"></i> Investigate
+              </button>
+              <button class="report-action-btn suspend-btn" onclick="deleteReviewFromReport(this, 'r2')">
                 <i class="fas fa-trash"></i> Delete Review
               </button>
-              <button class="report-action-btn dismiss-btn" onclick="dismissReport(this)">
+              <button class="report-action-btn dismiss-btn" onclick="dismissReport(this, 'r2')">
                 Dismiss
               </button>
             </div>
           </div>
+
         </div>
       </div>
 
